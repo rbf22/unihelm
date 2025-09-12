@@ -1,0 +1,7 @@
+sequence:
+  - monomer: ALA
+    type: PEPTIDE
+  - monomer: PRO
+    type: PEPTIDE
+  - monomer: TYR
+    type: PEPTIDE

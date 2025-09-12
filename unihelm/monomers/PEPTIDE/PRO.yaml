@@ -31,12 +31,14 @@ connections:
     remove_atoms_on_connect: [HN]
     order: 1
     type: Polymer
+    use_standard: peptide_N     # 🔹 Pulls bond/angle/dihedral from standard_connections.yaml
   - id: R2
     label: C_terminal
     connect_atom: C
     remove_atoms_on_connect: [OXT]
     order: 1
     type: Polymer
+    use_standard: peptide_C
 
 geometry:
   bonds:

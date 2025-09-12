@@ -20,6 +20,9 @@ atom_names:
   10: C
   11: O
   12: OXT
+  13: HN
+  14: HA
+
 connections:
   - id: R1
     label: N_terminal
@@ -27,12 +30,15 @@ connections:
     remove_atoms_on_connect: [HN]
     order: 1
     type: Polymer
+    use_standard: peptide_N     # 🔹 Pulls bond/angle/dihedral from standard_connections.yaml
   - id: R2
     label: C_terminal
     connect_atom: C
     remove_atoms_on_connect: [OXT]
     order: 1
     type: Polymer
+    use_standard: peptide_C
+
 rigid_groups:
   - id: backbone
     atoms: [N, CA, C, O]
