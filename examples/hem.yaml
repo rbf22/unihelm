@@ -1,0 +1,23 @@
+format: UniHelm YAML v1.0
+monomer_id: HEM
+polymer_type: CHEM
+category: porphyrin
+smiles: "[Fe]C1=CC2=CC3=CC=NC3=NC2=NC1"
+
+atom_names: auto
+connections:
+  - id: R1
+    label: axial_ligand1
+    connect_atom: Fe
+    remove_atoms_on_connect: []
+    order: 1
+    type: ChemLink
+  - id: R2
+    label: axial_ligand2
+    connect_atom: Fe
+    remove_atoms_on_connect: []
+    order: 1
+    type: ChemLink
+rigid_groups:
+  - id: porphyrin_macrocycle
+    atoms: all
