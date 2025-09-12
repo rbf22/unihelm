@@ -1,0 +1,46 @@
+format: UniHelm YAML v1.0
+monomer_id: TYR
+polymer_type: PEPTIDE
+category: amino_acid
+natural_analog: Y
+smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O"
+
+atom_names:
+  0: N
+  1: CA
+  2: CB
+  3: CG
+  4: CD1
+  5: CD2
+  6: CE1
+  7: CE2
+  8: CZ
+  9: OH
+  10: C
+  11: O
+  12: OXT
+connections:
+  - id: R1
+    label: N_terminal
+    connect_atom: N
+    remove_atoms_on_connect: [HN]
+    order: 1
+    type: Polymer
+  - id: R2
+    label: C_terminal
+    connect_atom: C
+    remove_atoms_on_connect: [OXT]
+    order: 1
+    type: Polymer
+rigid_groups:
+  - id: backbone
+    atoms: [N, CA, C, O]
+  - id: aromatic_ring
+    atoms: [CG, CD1, CD2, CE1, CE2, CZ, OH]
+special_torsions:
+  - name: chi1
+    atoms: [N, CA, CB, CG]
+    library_key: "chi1_tyr"
+  - name: chi2
+    atoms: [CA, CB, CG, CD1]
+    library_key: "aromatic_sidechain"
