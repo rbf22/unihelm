@@ -1,0 +1,62 @@
+monomer_id: ALA
+polymer_type: PEPTIDE
+category: amino_acid
+natural_analog: A
+smiles: "N[C@@H](C)C(=O)O"
+
+atom_names:
+  0: N
+  1: CA
+  2: CB
+  3: C
+  4: O
+  5: OXT
+  6: HN
+  7: HB1
+  8: HB2
+  9: HB3
+  10: HA
+
+connections:
+  - id: R1
+    label: N_terminal
+    connect_atom: N
+    remove_atoms_on_connect: [HN]
+    order: 1
+    type: Polymer
+  - id: R2
+    label: C_terminal
+    connect_atom: C
+    remove_atoms_on_connect: [OXT]
+    order: 1
+    type: Polymer
+
+geometry:
+  bonds:
+    - { atoms: [N, CA], length: 1.458 }
+    - { atoms: [CA, C], length: 1.525 }
+    - { atoms: [C, O], length: 1.229 }
+    - { atoms: [CA, CB], length: 1.530 }
+    - { atoms: [N, HN], length: 1.010 }
+    - { atoms: [CA, HA], length: 1.090 }
+    - { atoms: [CB, HB1], length: 1.090 }
+    - { atoms: [CB, HB2], length: 1.090 }
+    - { atoms: [CB, HB3], length: 1.090 }
+  angles:
+    - { atoms: [C_prev, N, CA], angle: 121.7 } # peptide N planar geometry
+    - { atoms: [N, CA, C], angle: 111.2 }
+    - { atoms: [CA, C, O], angle: 120.8 }
+  torsions:
+    - { atoms: [C_prev, N, CA, C], type: omega, default: 180.0, library: peptide_omega }
+    - { atoms: [N, CA, CB, HB1], type: chi1, default: 180.0, library: universal_chi1 }
+
+rigid_groups:
+  - id: backbone
+    atoms: [N, CA, C, O, HN, HA]
+  - id: sidechain
+    atoms: [CB, HB1, HB2, HB3]
+
+special_torsions:
+  - name: chi1
+    atoms: [N, CA, CB, HB1]
+    library_key: "C(sp3)-C(sp3)-C(sp3)-X"
