@@ -1,0 +1,23 @@
+format: UniHelm YAML v1.0
+monomer_id: PK-UNIT1
+polymer_type: POLYKETIDE
+category: extender_unit
+smiles: "CC(=O)CC(*)=O"
+atom_names: auto
+connections:
+  - id: R1
+    label: upstream
+    connect_atom: '*'   # dummy atom in SMILES
+    remove_atoms_on_connect: []
+    order: 1
+    type: Polymer
+  - id: R2
+    label: downstream
+    connect_atom: C4
+    remove_atoms_on_connect: []
+    order: 1
+    type: Polymer
+special_torsions:
+  - name: beta_keto_torsion
+    atoms: [C1, C2, C3, C4]
+    library_key: "sp2-sp2-sp3-sp2"
