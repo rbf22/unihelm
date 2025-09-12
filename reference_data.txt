@@ -1,0 +1,48 @@
+
+DNA bases:
+
+Adenine (A): C1=NC2=C(N1)N=CN=C2N
+Thymine (T): CC1=CN(C(=O)NC1=O)C
+Guanine (G): C1=NC2=C(N1)C(=O)N=C(N2)N
+Cytosine (C): NC1=NC=CN=C1N
+
+RNA bases:
+
+Adenine (A): C1=NC2=C(N1)N=CN=C2N (same as DNA)
+Uracil (U): O=C1C=CN(C1=O)C
+Guanine (G): C1=NC2=C(N1)C(=O)N=C(N2)N (same as DNA)
+Cytosine (C): NC1=NC=CN=C1N (same as DNA)
+
+Amino acids:
+
+Alanine (A): CC(C(=O)O)N
+Arginine (R): NC(CCCNC(N) = N)C(=O)O
+Asparagine (N): NC(CC(=O)N)C(=O)O
+Aspartic acid (D): NC(CC(=O)O)C(=O)O
+Cysteine (C): NC(CS)C(=O)O
+Glutamic acid (E): NC(CCC(=O)O)C(=O)O
+Glutamine (Q): NC(CCC(=O)N)C(=O)O
+Glycine (G): NCC(=O)O
+Histidine (H): NC(Cc1c[nH]cn1)C(=O)O
+Isoleucine (I): CC(C)CC(C(=O)O)N
+Leucine (L): CC(C)C(C(=O)O)N
+Lysine (K): NC(CCCCN)C(=O)O
+Methionine (M): CC(C)CSC(C(=O)O)N
+Phenylalanine (F): NC(CC1=CC=CC=C1)C(=O)O
+Proline (P): NC1CCC(C1)C(=O)O
+Serine (S): NC(CO)C(=O)O
+Threonine (T): NC(C(C)O)C(=O)O
+Tryptophan (W): NC(CC1=CNC2=CC=CC=C12)C(=O)O
+Tyrosine (Y): NC(CC1=CC=C(O)C=C1)C(=O)O
+Valine (V): CC(C)C(C(=O)O)N
+
+Carbohydrates:
+
+Glucose: C(C1C(C(C(C(O1)O)O)O)O)O
+Lactose (disaccharide of glucose and galactose): C(C1C(C(C(C(O1)O)O)O)O)OCC2OC(C(O)C(O)C2O)O
+Sucrose (disaccharide of glucose and fructose): C1C(C(C(C(O1)O)O)O)OC2C(C(C(O2)CO)O)OC3C(C(C(O3)CO)O)O
+
+Lipids:
+
+Phosphatidylcholine (a common phospholipid): C(C(C(OC(=O)CCCCCCCC=CCCCCCCCC)COP(=O)(O)OCCN+(C)C)O)O
+Cholesterol: CC@HC1CCC2C1(CCC3C2CCC4C3(CCC(C4)O)C)C
