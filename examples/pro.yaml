@@ -1,0 +1,58 @@
+format: PolyMol YAML v1.0
+monomer_id: PRO
+polymer_type: PEPTIDE
+category: amino_acid
+natural_analog: P
+smiles: "N1[C@@H](CCC1)C(=O)O"
+
+atom_names:
+  0: N
+  1: CA
+  2: CB
+  3: CG
+  4: CD
+  5: C
+  6: O
+  7: OXT
+  8: HN
+  9: HA
+  10: HB2
+  11: HB3
+  12: HG2
+  13: HG3
+  14: HD2
+  15: HD3
+
+connections:
+  - id: R1
+    label: N_terminal
+    connect_atom: N
+    remove_atoms_on_connect: [HN]
+    order: 1
+    type: Polymer
+  - id: R2
+    label: C_terminal
+    connect_atom: C
+    remove_atoms_on_connect: [OXT]
+    order: 1
+    type: Polymer
+
+geometry:
+  bonds:
+    - { atoms: [N, CA], length: 1.458 }
+    - { atoms: [CA, C], length: 1.525 }
+    - { atoms: [C, O], length: 1.229 }
+    - { atoms: [CA, CB], length: 1.530 }
+    - { atoms: [CB, CG], length: 1.520 }
+    - { atoms: [CG, CD], length: 1.520 }
+    - { atoms: [CD, N], length: 1.470 }
+  angles:
+    - { atoms: [C_prev, N, CA], angle: 121.7 }
+  torsions:
+    - { atoms: [C_prev, N, CA, C], type: omega, default: 180.0, library: peptide_omega }
+
+rigid_groups:
+  - id: backbone
+    atoms: [N, CA, C, O, HN, HA]
+  - id: pyrrolidine_ring
+    atoms: [CB, CG, CD, N, HB2, HB3, HG2, HG3, HD2, HD3]
