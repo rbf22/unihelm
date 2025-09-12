@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: SUC
+polymer_type: CARBOHYDRATE
+smiles: C1C(C(C(C(O1)O)O)O)OC2C(C(C(O2)CO)O)OC3C(C(C(O3)CO)O)O
+status: preliminary

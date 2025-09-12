@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: HIS
+polymer_type: PEPTIDE
+smiles: NC(Cc1c[nH]cn1)C(=O)O
+status: preliminary

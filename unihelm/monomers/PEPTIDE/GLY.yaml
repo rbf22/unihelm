@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: GLY
+polymer_type: PEPTIDE
+smiles: NCC(=O)O
+status: preliminary

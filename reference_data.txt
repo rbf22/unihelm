@@ -1,22 +1,21 @@
-
 DNA bases:
 
 Adenine (A): C1=NC2=C(N1)N=CN=C2N
 Thymine (T): CC1=CN(C(=O)NC1=O)C
-Guanine (G): C1=NC2=C(N1)C(=O)N=C(N2)N
+Guanine (G): C1=NC2=C(N1)C(=O)NC(=N2)N
 Cytosine (C): NC1=NC=CN=C1N
 
 RNA bases:
 
-Adenine (A): C1=NC2=C(N1)N=CN=C2N (same as DNA)
+Adenine (A): C1=NC2=C(N1)N=CN=C2N
 Uracil (U): O=C1C=CN(C1=O)C
-Guanine (G): C1=NC2=C(N1)C(=O)N=C(N2)N (same as DNA)
-Cytosine (C): NC1=NC=CN=C1N (same as DNA)
+Guanine (G): C1=NC2=C(N1)C(=O)NC(=N2)N
+Cytosine (C): NC1=NC=CN=C1N
 
 Amino acids:
 
 Alanine (A): CC(C(=O)O)N
-Arginine (R): NC(CCCNC(N) = N)C(=O)O
+Arginine (R): OC(=O)C(CCCN=C(N)N)N
 Asparagine (N): NC(CC(=O)N)C(=O)O
 Aspartic acid (D): NC(CC(=O)O)C(=O)O
 Cysteine (C): NC(CS)C(=O)O
@@ -44,5 +43,5 @@ Sucrose (disaccharide of glucose and fructose): C1C(C(C(C(O1)O)O)O)OC2C(C(C(O2)C
 
 Lipids:
 
-Phosphatidylcholine (a common phospholipid): C(C(C(OC(=O)CCCCCCCC=CCCCCCCCC)COP(=O)(O)OCCN+(C)C)O)O
-Cholesterol: CC@HC1CCC2C1(CCC3C2CCC4C3(CCC(C4)O)C)C
+Phosphatidylcholine (a common phospholipid): C[N+](C)(C)CCOP(=O)(O)OCC(COC=O)OC=O
+Cholesterol: C[C@H](CCCC(C)C)[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CC=C4[C@@]3(CC[C@@H](C4)O)C)C

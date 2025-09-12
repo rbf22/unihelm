@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: PHO
+polymer_type: CHEM
+smiles: C[N+](C)(C)CCOP(=O)(O)OCC(COC=O)OC=O
+status: preliminary

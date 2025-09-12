@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: LYS
+polymer_type: PEPTIDE
+smiles: NC(CCCCN)C(=O)O
+status: preliminary

@@ -215,18 +215,3 @@ def build_sequence(seq_def):
 
     Chem.SanitizeMol(positioned_mol)
     return positioned_mol
-
-def main(seq_file):
-    seq_def = load_yaml(seq_file)
-    mol = build_sequence(seq_def)
-    Chem.MolToMolFile(mol, "output_ic_debug.mol")
-    with open("output_ic_debug.pdb", "w") as f:
-        f.write(Chem.MolToPDBBlock(mol))
-    print("[OK] Fully parametric IC build with debug complete: output_ic_debug.mol / output_ic_debug.pdb")
-
-if __name__ == "__main__":
-    import argparse
-    ap = argparse.ArgumentParser(description="Build molecule from UniHelm sequence fully parametrically with debug")
-    ap.add_argument("sequence_file", help="Path to sequence YAML")
-    args = ap.parse_args()
-    main(args.sequence_file)

@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: ASP
+polymer_type: PEPTIDE
+smiles: NC(CC(=O)N)C(=O)O
+status: preliminary

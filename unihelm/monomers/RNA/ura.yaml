@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: ura
+polymer_type: RNA
+smiles: O=C1C=CN(C1=O)C
+status: preliminary

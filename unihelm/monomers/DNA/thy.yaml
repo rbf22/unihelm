@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: thy
+polymer_type: DNA
+smiles: CC1=CN(C(=O)NC1=O)C
+status: preliminary
