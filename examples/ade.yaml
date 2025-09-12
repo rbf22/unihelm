@@ -1,4 +1,4 @@
-format: PolyMol YAML v1.0
+format: UniHelm YAML v1.0
 monomer_id: A
 polymer_type: RNA
 category: nucleotide
