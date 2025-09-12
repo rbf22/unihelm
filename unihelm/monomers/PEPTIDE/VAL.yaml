@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: VAL
+polymer_type: PEPTIDE
+smiles: CC(C)C(C(=O)O)N
+status: preliminary

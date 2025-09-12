@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: cyt
+polymer_type: RNA
+smiles: NC1=NC=CN=C1N
+status: preliminary

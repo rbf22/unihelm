@@ -80,14 +80,3 @@ def validate_yaml(path):
     atom_names = get_atom_names(data, mol)
     check_connections(data, atom_names, file_id)
     print(f"[OK] {file_id}")
-
-if __name__ == "__main__":
-    base_dir = sys.argv[1] if len(sys.argv) > 1 else "./unihelm/monomers"
-    for root, dirs, files in os.walk(base_dir):
-        for file in files:
-            if file.endswith(".yaml"):
-                path = os.path.join(root, file)
-                try:
-                    validate_yaml(path)
-                except Exception as e:
-                    print(f"[FAIL] {path}: {e}")

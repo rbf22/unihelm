@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: ade
+polymer_type: DNA
+smiles: C1=NC2=C(N1)N=CN=C2N
+status: preliminary

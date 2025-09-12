@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: ARG
+polymer_type: PEPTIDE
+smiles: OC(=O)C(CCCN=C(N)N)N
+status: preliminary

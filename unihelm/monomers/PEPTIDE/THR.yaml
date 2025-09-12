@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: THR
+polymer_type: PEPTIDE
+smiles: NC(C(C)O)C(=O)O
+status: preliminary

@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: GLU
+polymer_type: CARBOHYDRATE
+smiles: C(C1C(C(C(C(O1)O)O)O)O)O
+status: preliminary

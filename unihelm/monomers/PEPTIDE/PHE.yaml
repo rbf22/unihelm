@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: PHE
+polymer_type: PEPTIDE
+smiles: NC(CC1=CC=CC=C1)C(=O)O
+status: preliminary

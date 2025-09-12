@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: GLU
+polymer_type: PEPTIDE
+smiles: NC(CCC(=O)O)C(=O)O
+status: preliminary

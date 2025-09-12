@@ -1,0 +1,6 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: MET
+polymer_type: PEPTIDE
+smiles: CC(C)CSC(C(=O)O)N
+status: preliminary
