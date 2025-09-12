@@ -1,0 +1,69 @@
+format: UniHelm standard_connections
+version: 1.0
+
+standard_connections:
+  peptide_N:
+    bond:
+      partner_atom: C_prev
+      length: 1.329
+    angle:
+      atoms: [C_prev, N, CA]
+      value: 121.7
+    dihedral:
+      atoms: [CA_prev, C_prev, N, CA]
+      default: 180.0
+      library: peptide_omega
+
+  peptide_C:
+    bond:
+      partner_atom: N_next
+      length: 1.329
+    angle:
+      atoms: [CA, C, N_next]
+      value: 116.0
+    dihedral:
+      atoms: [N, CA, C, N_next]
+      default: 180.0
+
+  rna_3prime:
+    bond:
+      partner_atom: P_next
+      length: 1.607
+    angle:
+      atoms: ["C3'", "O3'", P_next]
+      value: 120.4
+    dihedral:
+      atoms: ["C4'", "C3'", "O3'", P_next]
+      default: 180.0
+
+  rna_5prime:
+    bond:
+      partner_atom: O3_prev
+      length: 1.607
+    angle:
+      atoms: [O3_prev, "O5'", "C5'"]
+      value: 108.2
+    dihedral:
+      atoms: ["C3'", O3_prev, "O5'", "C5'"]
+      default: 180.0
+
+  pkd_upstream:
+    bond:
+      partner_atom: C_prev
+      length: 1.540
+    angle:
+      atoms: [C_prev, C1, C2]
+      value: 112.0
+
+  pkd_downstream:
+    bond:
+      partner_atom: C_next
+      length: 1.540
+    angle:
+      atoms: [C4, C3, C_next]
+      value: 112.0
+
+  heme_axial:
+    bond:
+      partner_atom: LIG
+      length: 2.000

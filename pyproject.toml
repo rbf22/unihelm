@@ -1,0 +1,19 @@
+[project]
+name = "unihelm"
+version = "0.1.0"
+description = "A human‑readable, extensible format for defining polymerizable chemical building blocks with torsional topology metadata."
+authors = [
+    {name = "skip"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pyaml (>=25.7.0,<26.0.0)",
+    "rdkit (>=2025.3.6,<2026.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

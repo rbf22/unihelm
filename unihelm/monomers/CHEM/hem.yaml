@@ -1,4 +1,5 @@
-format: UniHelm YAML v1.0
+format: UniHelm YAML
+version: 1.0
 monomer_id: HEM
 polymer_type: CHEM
 category: porphyrin
@@ -8,13 +9,13 @@ atom_names: auto
 connections:
   - id: R1
     label: axial_ligand1
-    connect_atom: Fe
+    connect_atom: Fe1
     remove_atoms_on_connect: []
     order: 1
     type: ChemLink
   - id: R2
     label: axial_ligand2
-    connect_atom: Fe
+    connect_atom: Fe1
     remove_atoms_on_connect: []
     order: 1
     type: ChemLink

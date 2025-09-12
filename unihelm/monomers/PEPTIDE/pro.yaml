@@ -1,4 +1,5 @@
-format: UniHelm YAML v1.0
+format: UniHelm YAML
+version: 1.0
 monomer_id: PRO
 polymer_type: PEPTIDE
 category: amino_acid

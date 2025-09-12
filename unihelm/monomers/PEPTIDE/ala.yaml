@@ -1,0 +1,41 @@
+format: UniHelm YAML
+version: 1.0
+monomer_id: ALA
+polymer_type: PEPTIDE
+category: amino_acid
+natural_analog: A
+smiles: "N[C@@H](C)C(=O)O"
+
+atom_names:
+  0: N
+  1: CA
+  2: CB
+  3: C
+  4: O
+  5: OXT
+  6: HN
+  7: HB1
+  8: HB2
+  9: HB3
+  10: HA
+
+connections:
+  - id: R1
+    label: N_terminal
+    connect_atom: N
+    remove_atoms_on_connect: [HN]
+    type: Polymer
+    use_standard: peptide_N
+  - id: R2
+    label: C_terminal
+    connect_atom: C
+    remove_atoms_on_connect: [OXT]
+    type: Polymer
+    use_standard: peptide_C
+
+geometry:
+  bonds:
+    - { atoms: [N, CA], length: 1.458 }
+    - { atoms: [CA, CB], length: 1.530 }
+    - { atoms: [CA, C], length: 1.525 }
+    - { atoms: [C, O], length: 1.229 }
