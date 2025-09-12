@@ -1,3 +1,4 @@
+format: UniHelm YAML v1.0
 monomer_id: ALA
 polymer_type: PEPTIDE
 category: amino_acid
