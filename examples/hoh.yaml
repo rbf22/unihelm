@@ -1,0 +1,13 @@
+format: UniHelm YAML v1.0
+monomer_id: HOH
+polymer_type: CHEM
+category: solvent
+smiles: "O"
+atom_names:
+  0: O
+  1: H1
+  2: H2
+connections: []
+rigid_groups:
+  - id: water_molecule
+    atoms: [O, H1, H2]
