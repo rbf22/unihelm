@@ -1,10 +1,10 @@
 format: UniHelm YAML
 version: 1.0
-monomer_id: DC
-polymer_type: DNA
+monomer_id: U
+polymer_type: RNA
 category: nucleotide
-natural_analog: C
-smiles: "NC1=NC(=O)C=CN1C1OC(CO)CC1O"
+natural_analog: U
+smiles: "O=C1C=CN(C(=O)N1)C1OC(CO)C(O)C1O"
 
 atom_names:
   N1: 0
@@ -12,21 +12,21 @@ atom_names:
   O2: 2
   N3: 3
   C4: 4
-  N4: 5
+  O4: 5
   C5: 6
   C6: 7
   C1': 8
   C2': 9
-  C3': 10
-  O3': 11
-  C4': 12
-  O4': 13
-  C5': 14
-  O5': 15
-  H3T: 16
-  H5T: 17
-  H2'1: 18
-  H2'2: 19
+  O2': 10
+  C3': 11
+  O3': 12
+  C4': 13
+  O4': 14
+  C5': 15
+  O5': 16
+  H2T: 17
+  H3T: 18
+  H5T: 19
 
 connections:
   - id: R1
@@ -34,19 +34,19 @@ connections:
     connect_atom: "O3'"
     remove_atoms_on_connect: [H3T]
     type: Polymer
-    use_standard: dna_3prime
+    use_standard: rna_3prime
   - id: R2
     label: 5_prime
     connect_atom: "O5'"
     remove_atoms_on_connect: [H5T]
     type: Polymer
-    use_standard: dna_5prime
+    use_standard: rna_5prime
 
 rigid_groups:
-  - id: deoxyribose
-    atoms: ["C1'", "C2'", "C3'", "O3'", "C4'", "O4'", "C5'", "O5'"]
-  - id: cytosine_base
-    atoms: [N1, C2, O2, N3, C4, N4, C5, C6]
+  - id: ribose
+    atoms: ["C1'", "C2'", "O2'", "C3'", "O3'", "C4'", "O4'", "C5'", "O5'"]
+  - id: uracil_base
+    atoms: [N1, C2, O2, N3, C4, O4, C5, C6]
 
 special_torsions:
   - name: glycosidic_angle

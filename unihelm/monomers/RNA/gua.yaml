@@ -1,6 +1,0 @@
-format: UniHelm YAML
-version: '1.0'
-monomer_id: gua
-polymer_type: RNA
-smiles: C1=NC2=C(N1)C(=O)NC(=N2)N
-status: preliminary

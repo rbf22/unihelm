@@ -1,10 +1,10 @@
 format: UniHelm YAML
 version: 1.0
-monomer_id: DG
-polymer_type: DNA
+monomer_id: G
+polymer_type: RNA
 category: nucleotide
 natural_analog: G
-smiles: "O=c1[nH]c2N=C(N)[nH]c2c1N1C(CO)OC(C)C1"
+smiles: "Nc1nc2n(cnc2c(=O)[nH]1)[C@@H]1O[C@H](CO)[C@@H](O)[C@H]1O"
 
 atom_names:
   N1: 0
@@ -20,16 +20,16 @@ atom_names:
   N9: 10
   C1': 11
   C2': 12
-  C3': 13
-  O3': 14
-  C4': 15
-  O4': 16
-  C5': 17
-  O5': 18
-  H3T: 19
-  H5T: 20
-  H2'1: 21
-  H2'2: 22
+  O2': 13
+  C3': 14
+  O3': 15
+  C4': 16
+  O4': 17
+  C5': 18
+  O5': 19
+  H2T: 20
+  H3T: 21
+  H5T: 22
 
 connections:
   - id: R1
@@ -37,17 +37,17 @@ connections:
     connect_atom: "O3'"
     remove_atoms_on_connect: [H3T]
     type: Polymer
-    use_standard: dna_3prime
+    use_standard: rna_3prime
   - id: R2
     label: 5_prime
     connect_atom: "O5'"
     remove_atoms_on_connect: [H5T]
     type: Polymer
-    use_standard: dna_5prime
+    use_standard: rna_5prime
 
 rigid_groups:
-  - id: deoxyribose
-    atoms: ["C1'", "C2'", "C3'", "O3'", "C4'", "O4'", "C5'", "O5'"]
+  - id: ribose
+    atoms: ["C1'", "C2'", "O2'", "C3'", "O3'", "C4'", "O4'", "C5'", "O5'"]
   - id: guanine_base
     atoms: [N1, C2, N2, N3, C4, C5, C6, O6, N7, C8, N9]
 

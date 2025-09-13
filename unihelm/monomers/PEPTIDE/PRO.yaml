@@ -7,31 +7,31 @@ natural_analog: P
 smiles: "N1[C@@H](CCC1)C(=O)O"
 
 atom_names:
-  0: N
-  1: CA
-  2: CB
-  3: CG
-  4: CD
-  5: C
-  6: O
-  7: OXT
-  8: HN
-  9: HA
-  10: HB2
-  11: HB3
-  12: HG2
-  13: HG3
-  14: HD2
-  15: HD3
+  N: 0
+  CA: 1
+  CB: 2
+  CG: 3
+  CD: 4
+  C: 5
+  O: 6
+  OXT: 7
+  H: 8
+  HA: 9
+  HB2: 10
+  HB3: 11
+  HG2: 12
+  HG3: 13
+  HD2: 14
+  HD3: 15
 
 connections:
   - id: R1
     label: N_terminal
     connect_atom: N
-    remove_atoms_on_connect: [HN]
+    remove_atoms_on_connect: [H]
     order: 1
     type: Polymer
-    use_standard: peptide_N     # 🔹 Pulls bond/angle/dihedral from standard_connections.yaml
+    use_standard: peptide_N
   - id: R2
     label: C_terminal
     connect_atom: C
@@ -56,6 +56,6 @@ geometry:
 
 rigid_groups:
   - id: backbone
-    atoms: [N, CA, C, O, HN, HA]
+    atoms: [N, CA, C, O, H, HA]
   - id: pyrrolidine_ring
     atoms: [CB, CG, CD, N, HB2, HB3, HG2, HG3, HD2, HD3]

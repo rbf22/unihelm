@@ -1,58 +1,56 @@
 format: UniHelm YAML
 version: 1.0
-monomer_id: A
+monomer_id: C
 polymer_type: RNA
 category: nucleotide
-natural_analog: A
-smiles: "Nc1ncnc2c1ncn2C1OC(CO)C(O)C1O"
+natural_analog: C
+smiles: "NC1=NC(=O)C=CN1C1OC(CO)C(O)C1O"
 
 atom_names:
-  0: N9
-  1: C8
-  2: N7
-  3: C5
-  4: C6
-  5: N6
-  6: N1
-  7: C2
-  8: N3
-  9: C4
-  10: C1'
-  11: C2'
-  12: O2'
-  13: C3'
-  14: O3'
-  15: C4'
-  16: O4'
-  17: C5'
-  18: O5'
-  19: HO2'
-  20: HO3'
-  21: HO5'
+  N1: 0
+  C2: 1
+  O2: 2
+  N3: 3
+  C4: 4
+  N4: 5
+  C5: 6
+  C6: 7
+  C1': 8
+  C2': 9
+  O2': 10
+  C3': 11
+  O3': 12
+  C4': 13
+  O4': 14
+  C5': 15
+  O5': 16
+  H2T: 17
+  H3T: 18
+  H5T: 19
 
 connections:
   - id: R1
     label: 3_prime
     connect_atom: "O3'"
-    remove_atoms_on_connect: [HO3']
+    remove_atoms_on_connect: [H3T]
     type: Polymer
     use_standard: rna_3prime
   - id: R2
     label: 5_prime
     connect_atom: "O5'"
-    remove_atoms_on_connect: [HO5']
+    remove_atoms_on_connect: [H5T]
     type: Polymer
     use_standard: rna_5prime
 
 rigid_groups:
   - id: ribose
     atoms: ["C1'", "C2'", "O2'", "C3'", "O3'", "C4'", "O4'", "C5'", "O5'"]
-  - id: adenine_base
-    atoms: [N9, C8, N7, C5, C6, N6, N1, C2, N3, C4]
+  - id: cytosine_base
+    atoms: [N1, C2, O2, N3, C4, N4, C5, C6]
 
 special_torsions:
   - name: glycosidic_angle
-    atoms: ["O4'", "C1'", N9, C4]
+    atoms: ["O4'", "C1'", N1, C2]
     library_key: "nucleoside_chi"
   - name: sugar_pucker
     atoms: ["C1'", "C2'", "C3'", "C4'", "O4'"]

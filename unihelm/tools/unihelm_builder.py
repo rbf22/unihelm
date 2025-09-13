@@ -149,8 +149,26 @@ def build_sequence(seq_def):
             log(f"   Prev connect_atom: {prev_cterm['connect_atom']}")
             log(f"   Curr connect_atom: {curr_nterm['connect_atom']}")
 
-            remove_atoms_by_names(positioned_mol, positioned_atom_names_map, prev_cterm.get("remove_atoms_on_connect", []), prev_monomer_id)
-            remove_atoms_by_names(rw_mol, {k: f"{m_id}:{v}" for k, v in current_atom_names_map.items()}, curr_nterm.get("remove_atoms_on_connect", []), m_id)
+            # Get atoms to remove
+            atoms_to_remove_prev = set()
+            for name in prev_cterm.get("remove_atoms_on_connect", []):
+                atoms_to_remove_prev.add(find_atom_index_by_name(positioned_atom_names_map, name, prev_monomer_id))
+
+            atoms_to_remove_curr = set()
+            for name in curr_nterm.get("remove_atoms_on_connect", []):
+                atoms_to_remove_curr.add(find_atom_index_by_name(current_atom_names_map, name))
+
+            # Create new molecules with only the atoms that should be kept
+            new_positioned_mol = Chem.RWMol(positioned_mol)
+            for idx in sorted(list(atoms_to_remove_prev), reverse=True):
+                new_positioned_mol.RemoveAtom(idx)
+
+            new_rw_mol = Chem.RWMol(rw_mol)
+            for idx in sorted(list(atoms_to_remove_curr), reverse=True):
+                new_rw_mol.RemoveAtom(idx)
+
+            positioned_mol = new_positioned_mol.GetMol()
+            rw_mol = new_rw_mol.GetMol()
 
             positioned_conf = positioned_mol.GetConformer()
             prev_idx = find_atom_index_by_name(positioned_atom_names_map, prev_cterm["connect_atom"], prev_monomer_id)
