@@ -1,428 +1,125 @@
 format: UniHelm YAML
-version: '2.1'
+version: '1.0'
 monomer_id: ALA
 polymer_type: PEPTIDE
 smiles: N[C@@H](C)C(=O)O
 atom_names:
-  CA: 1
-  C: 3
   N: 0
+  CA: 1
+  CB: 2
+  C: 3
   O: 4
   OXT: 5
-  CB: 2
-  H1N: 6
-  H2N: 7
-  H1CA: 8
-  H1CB: 9
-  H2CB: 10
-  H3CB: 11
-  H1OXT: 12
+  H1: 6
+  H2: 7
+  HA: 8
+  HB1: 9
+  HB2: 10
+  HB3: 11
+  HXT: 12
 connections:
 - id: R1
   label: N_term
   connect_atom: N
   remove_atoms_on_connect:
-  - H1N
+  - H1
   use_standard: peptide_N
 - id: R2
   label: C_term
   connect_atom: C
   remove_atoms_on_connect:
   - OXT
-  - H1OXT
+  - HXT
   use_standard: peptide_C
 geometry:
   bonds:
-  - atoms:
-    - CA
-    - N
+  - atoms: [CA, N]
     length: 1.464
-    type: 1
-  - atoms:
-    - CA
-    - CB
+  - atoms: [CA, CB]
     length: 1.53
-    type: 1
-  - atoms:
-    - C
-    - CA
+  - atoms: [C, CA]
     length: 1.506
-    type: 1
-  - atoms:
-    - C
-    - O
+  - atoms: [C, O]
     length: 1.261
-    type: 2
-  - atoms:
-    - C
-    - OXT
+  - atoms: [C, OXT]
     length: 1.391
-    type: 1
-  - atoms:
-    - H1N
-    - N
+  - atoms: [H1, N]
     length: 1.046
-    type: 1
-  - atoms:
-    - H2N
-    - N
+  - atoms: [H2, N]
     length: 1.047
-    type: 1
-  - atoms:
-    - CA
-    - H1CA
+  - atoms: [CA, HA]
     length: 1.113
-    type: 1
-  - atoms:
-    - CB
-    - H1CB
+  - atoms: [CB, HB1]
     length: 1.111
-    type: 1
-  - atoms:
-    - CB
-    - H2CB
+  - atoms: [CB, HB2]
     length: 1.111
-    type: 1
-  - atoms:
-    - CB
-    - H3CB
+  - atoms: [CB, HB3]
     length: 1.111
-    type: 1
-  - atoms:
-    - H1OXT
-    - OXT
+  - atoms: [HXT, OXT]
     length: 1.013
-    type: 1
   angles:
-  - atoms:
-    - N
-    - CA
-    - CB
-    angle: 110.2
-  - atoms:
-    - N
-    - CA
-    - C
-    angle: 111.1
-  - atoms:
-    - N
-    - CA
-    - H1CA
-    angle: 108.4
-  - atoms:
-    - CA
-    - N
-    - H1N
-    angle: 108.6
-  - atoms:
-    - CA
-    - N
-    - H2N
-    angle: 109.6
-  - atoms:
-    - CA
-    - CB
-    - H1CB
-    angle: 109.8
-  - atoms:
-    - CA
-    - CB
-    - H2CB
-    angle: 110.1
-  - atoms:
-    - CA
-    - CB
-    - H3CB
-    angle: 110.8
-  - atoms:
-    - CA
-    - C
-    - O
-    angle: 120.4
-  - atoms:
-    - CA
-    - C
-    - OXT
-    angle: 119.8
-  - atoms:
-    - CB
-    - CA
-    - N
-    angle: 110.2
-  - atoms:
-    - CB
-    - CA
-    - C
-    angle: 110.8
-  - atoms:
-    - CB
-    - CA
-    - H1CA
-    angle: 107.7
-  - atoms:
-    - C
-    - CA
-    - N
-    angle: 111.1
-  - atoms:
-    - C
-    - CA
-    - CB
-    angle: 110.8
-  - atoms:
-    - C
-    - CA
-    - H1CA
-    angle: 108.6
-  - atoms:
-    - C
-    - OXT
-    - H1OXT
-    angle: 120.9
-  - atoms:
-    - O
-    - C
-    - CA
-    angle: 120.4
-  - atoms:
-    - O
-    - C
-    - OXT
-    angle: 119.8
-  - atoms:
-    - OXT
-    - C
-    - CA
-    angle: 119.8
-  - atoms:
-    - OXT
-    - C
-    - O
-    angle: 119.8
-  - atoms:
-    - H1N
-    - N
-    - CA
-    angle: 108.6
-  - atoms:
-    - H1N
-    - N
-    - H2N
-    angle: 107.4
-  - atoms:
-    - H2N
-    - N
-    - CA
-    angle: 109.6
-  - atoms:
-    - H2N
-    - N
-    - H1N
-    angle: 107.4
-  - atoms:
-    - H1CA
-    - CA
-    - N
-    angle: 108.4
-  - atoms:
-    - H1CA
-    - CA
-    - CB
-    angle: 107.7
-  - atoms:
-    - H1CA
-    - CA
-    - C
-    angle: 108.6
-  - atoms:
-    - H1CB
-    - CB
-    - CA
-    angle: 109.8
-  - atoms:
-    - H1CB
-    - CB
-    - H2CB
-    angle: 108.4
-  - atoms:
-    - H1CB
-    - CB
-    - H3CB
-    angle: 108.7
-  - atoms:
-    - H2CB
-    - CB
-    - CA
-    angle: 110.1
-  - atoms:
-    - H2CB
-    - CB
-    - H1CB
-    angle: 108.4
-  - atoms:
-    - H2CB
-    - CB
-    - H3CB
-    angle: 109.0
-  - atoms:
-    - H3CB
-    - CB
-    - CA
-    angle: 110.8
-  - atoms:
-    - H3CB
-    - CB
-    - H1CB
-    angle: 108.7
-  - atoms:
-    - H3CB
-    - CB
-    - H2CB
-    angle: 109.0
-  - atoms:
-    - H1OXT
-    - OXT
-    - C
-    angle: 120.9
+  - { atoms: [N, CA, CB], angle: 110.2 }
+  - { atoms: [N, CA, C], angle: 111.1 }
+  - { atoms: [N, CA, HA], angle: 108.4 }
+  - { atoms: [CA, N, H1], angle: 108.6 }
+  - { atoms: [CA, N, H2], angle: 109.6 }
+  - { atoms: [CA, CB, HB1], angle: 109.8 }
+  - { atoms: [CA, CB, HB2], angle: 110.1 }
+  - { atoms: [CA, CB, HB3], angle: 110.8 }
+  - { atoms: [CA, C, O], angle: 120.4 }
+  - { atoms: [CA, C, OXT], angle: 119.8 }
+  - { atoms: [CB, CA, N], angle: 110.2 }
+  - { atoms: [CB, CA, C], angle: 110.8 }
+  - { atoms: [CB, CA, HA], angle: 107.7 }
+  - { atoms: [C, CA, N], angle: 111.1 }
+  - { atoms: [C, CA, CB], angle: 110.8 }
+  - { atoms: [C, CA, HA], angle: 108.6 }
+  - { atoms: [C, OXT, HXT], angle: 120.9 }
+  - { atoms: [O, C, CA], angle: 120.4 }
+  - { atoms: [O, C, OXT], angle: 119.8 }
+  - { atoms: [OXT, C, CA], angle: 119.8 }
+  - { atoms: [OXT, C, O], angle: 119.8 }
+  - { atoms: [H1, N, CA], angle: 108.6 }
+  - { atoms: [H1, N, H2], angle: 107.4 }
+  - { atoms: [H2, N, CA], angle: 109.6 }
+  - { atoms: [H2, N, H1], angle: 107.4 }
+  - { atoms: [HA, CA, N], angle: 108.4 }
+  - { atoms: [HA, CA, CB], angle: 107.7 }
+  - { atoms: [HA, CA, C], angle: 108.6 }
+  - { atoms: [HB1, CB, CA], angle: 109.8 }
+  - { atoms: [HB1, CB, HB2], angle: 108.4 }
+  - { atoms: [HB1, CB, HB3], angle: 108.7 }
+  - { atoms: [HB2, CB, CA], angle: 110.1 }
+  - { atoms: [HB2, CB, HB1], angle: 108.4 }
+  - { atoms: [HB2, CB, HB3], angle: 109.0 }
+  - { atoms: [HB3, CB, CA], angle: 110.8 }
+  - { atoms: [HB3, CB, HB1], angle: 108.7 }
+  - { atoms: [HB3, CB, HB2], angle: 109.0 }
+  - { atoms: [HXT, OXT, C], angle: 120.9 }
 rotamers:
 - id: ala_rotamer_1
   relative_energy_kcal_mol: 0.7739
   dihedrals:
-  - atoms:
-    - H1N
-    - N
-    - CA
-    - CB
-    dihedral: 177.0
-  - atoms:
-    - H1N
-    - N
-    - CA
-    - C
-    dihedral: -59.8
-  - atoms:
-    - H1N
-    - N
-    - CA
-    - H1CA
-    dihedral: 59.4
-  - atoms:
-    - H2N
-    - N
-    - CA
-    - CB
-    dihedral: -65.9
-  - atoms:
-    - H2N
-    - N
-    - CA
-    - C
-    dihedral: 57.2
-  - atoms:
-    - H2N
-    - N
-    - CA
-    - H1CA
-    dihedral: 176.5
-  - atoms:
-    - N
-    - CA
-    - CB
-    - H1CB
-    dihedral: -58.7
-  - atoms:
-    - N
-    - CA
-    - CB
-    - H2CB
-    dihedral: -178.0
-  - atoms:
-    - N
-    - CA
-    - CB
-    - H3CB
-    dihedral: 61.4
-  - atoms:
-    - C
-    - CA
-    - CB
-    - H1CB
-    dihedral: 178.0
-  - atoms:
-    - C
-    - CA
-    - CB
-    - H2CB
-    dihedral: 58.7
-  - atoms:
-    - C
-    - CA
-    - CB
-    - H3CB
-    dihedral: -61.9
-  - atoms:
-    - H1CA
-    - CA
-    - CB
-    - H1CB
-    dihedral: 59.3
-  - atoms:
-    - H1CA
-    - CA
-    - CB
-    - H2CB
-    dihedral: -60.0
-  - atoms:
-    - H1CA
-    - CA
-    - CB
-    - H3CB
-    dihedral: 179.4
-  - atoms:
-    - N
-    - CA
-    - C
-    - O
-    dihedral: -60.0
-  - atoms:
-    - N
-    - CA
-    - C
-    - OXT
-    dihedral: 120.1
-  - atoms:
-    - CB
-    - CA
-    - C
-    - O
-    dihedral: 62.8
-  - atoms:
-    - CB
-    - CA
-    - C
-    - OXT
-    dihedral: -117.1
-  - atoms:
-    - H1CA
-    - CA
-    - C
-    - O
-    dihedral: -179.1
-  - atoms:
-    - H1CA
-    - CA
-    - C
-    - OXT
-    dihedral: 1.1
-  - atoms:
-    - CA
-    - C
-    - OXT
-    - H1OXT
-    dihedral: 179.9
-  - atoms:
-    - O
-    - C
-    - OXT
-    - H1OXT
-    dihedral: 0.1
+  - { atoms: [H1, N, CA, CB], dihedral: 177.0 }
+  - { atoms: [H1, N, CA, C], dihedral: -59.8 }
+  - { atoms: [H1, N, CA, HA], dihedral: 59.4 }
+  - { atoms: [H2, N, CA, CB], dihedral: -65.9 }
+  - { atoms: [H2, N, CA, C], dihedral: 57.2 }
+  - { atoms: [H2, N, CA, HA], dihedral: 176.5 }
+  - { atoms: [N, CA, CB, HB1], dihedral: -58.7 }
+  - { atoms: [N, CA, CB, HB2], dihedral: -178.0 }
+  - { atoms: [N, CA, CB, HB3], dihedral: 61.4 }
+  - { atoms: [C, CA, CB, HB1], dihedral: 178.0 }
+  - { atoms: [C, CA, CB, HB2], dihedral: 58.7 }
+  - { atoms: [C, CA, CB, HB3], dihedral: -61.9 }
+  - { atoms: [HA, CA, CB, HB1], dihedral: 59.3 }
+  - { atoms: [HA, CA, CB, HB2], dihedral: -60.0 }
+  - { atoms: [HA, CA, CB, HB3], dihedral: 179.4 }
+  - { atoms: [N, CA, C, O], dihedral: -60.0 }
+  - { atoms: [N, CA, C, OXT], dihedral: 120.1 }
+  - { atoms: [CB, CA, C, O], dihedral: 62.8 }
+  - { atoms: [CB, CA, C, OXT], dihedral: -117.1 }
+  - { atoms: [HA, CA, C, O], dihedral: -179.1 }
+  - { atoms: [HA, CA, C, OXT], dihedral: 1.1 }
+  - { atoms: [CA, C, OXT, HXT], dihedral: 179.9 }
+  - { atoms: [O, C, OXT, HXT], dihedral: 0.1 }

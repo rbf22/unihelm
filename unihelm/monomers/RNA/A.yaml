@@ -1,0 +1,44 @@
+format: UniHelm YAML
+version: 1.0
+monomer_id: A
+polymer_type: RNA
+category: nucleotide
+natural_analog: A
+smiles: "c1nc(c2c(n1)n(cn2)[C@H]3[C@@H]([C@@H]([C@H](O3)COP(=O)(O)O)O)O)N"
+
+atom_names:
+  C2: 0
+  N3: 1
+  C6: 2
+  C4: 3
+  C5: 4
+  N1: 5
+  N9: 6
+  C8: 7
+  N7: 8
+  N6: 22
+  C1': 9
+  C2': 10
+  C3': 11
+  C4': 12
+  O4': 13
+  C5': 14
+  O5': 15
+  P: 16
+  OP1: 18
+  OP2: 19
+  O3': 20
+  O2': 21
+
+connections:
+  - id: R1
+    label: 3_prime
+    connect_atom: "O3'"
+    type: Polymer
+    use_standard: rna_3prime
+  - id: R2
+    label: 5_prime
+    connect_atom: "P"
+    remove_atoms_on_connect: [OP1]
+    type: Polymer
+    use_standard: rna_5prime

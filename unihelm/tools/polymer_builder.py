@@ -101,8 +101,16 @@ def build_polymer(sequence_with_rotamers):
         prev_data = yaml.safe_load(prev_mol.GetProp("monomer_data"))
         curr_data = yaml.safe_load(curr_mol.GetProp("monomer_data"))
 
-        prev_conn_info = next(c for c in prev_data['connections'] if 'C_term' in c['label'])
-        curr_conn_info = next(c for c in curr_data['connections'] if 'N_term' in c['label'])
+        # Determine connection labels based on polymer type
+        if prev_data['polymer_type'] == 'PEPTIDE':
+            prev_label, curr_label = 'C_term', 'N_term'
+        elif prev_data['polymer_type'] in ['RNA', 'DNA']:
+            prev_label, curr_label = '3_prime', '5_prime'
+        else:
+            raise ValueError(f"Unsupported polymer type: {prev_data['polymer_type']}")
+
+        prev_conn_info = next(c for c in prev_data['connections'] if prev_label in c['label'])
+        curr_conn_info = next(c for c in curr_data['connections'] if curr_label in c['label'])
 
         conn_geom = std_conns.get(prev_conn_info.get("use_standard"), {})
         bond_len = conn_geom['bond']['length']

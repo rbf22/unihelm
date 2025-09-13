@@ -1,0 +1,9 @@
+sequence:
+  - monomer: A
+    type: RNA
+  - monomer: U
+    type: RNA
+  - monomer: G
+    type: RNA
+  - monomer: C
+    type: RNA

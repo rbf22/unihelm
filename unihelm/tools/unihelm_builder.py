@@ -11,6 +11,7 @@ import os, yaml, math
 import numpy as np
 from rdkit import Chem
 from rdkit.Chem import AllChem
+from rdkit.Chem.rdchem import AtomPDBResidueInfo
 
 MONOMERS_DIR = os.path.join(os.path.dirname(__file__), "../monomers")
 CONNECTIONS_FILE = os.path.join(os.path.dirname(__file__), "../connections/standard_connections.yaml")
@@ -44,20 +45,17 @@ def merge_standard(conn, std_conns):
     return conn
 
 def find_atom_index_by_name(atom_names_map, atom_name, monomer_id=None):
-    # If the name is external (e.g., C_prev), it won't have a monomer ID.
-    is_external = atom_name.endswith(("_prev", "_next"))
-
-    # Construct the name to search for.
-    search_name = atom_name if is_external else f"{monomer_id}:{atom_name}"
-
-    for idx_str, name in atom_names_map.items():
-        if name == search_name:
-            return int(idx_str)
-
-    # Fallback for old-style maps during the first monomer addition
-    if monomer_id is None:
+    # If monomer_id is provided, the map is global (index -> monomer:name)
+    if monomer_id:
+        search_name = f"{monomer_id}:{atom_name}"
         for idx_str, name in atom_names_map.items():
-            if name == atom_name:
+            if name == search_name:
+                return int(idx_str)
+    # If no monomer_id, the map is local (index -> name)
+    else:
+        search_name = atom_name
+        for idx_str, name in atom_names_map.items():
+            if name == search_name:
                 return int(idx_str)
 
     raise ValueError(f"Atom '{search_name}' not found in atom_names_map")
@@ -125,32 +123,74 @@ def build_sequence(seq_def):
         log(f"\n[Monomer {i+1}] {m_id} ({m_type})")
 
         current_monomer_yaml = load_monomer(m_id, m_type)
-        current_atom_names_map = current_monomer_yaml.get("atom_names", {})
+        # The YAML has name:index, so we invert it to get index:name for our internal use
+        name_to_idx_map = current_monomer_yaml.get("atom_names", {})
+        idx_to_name_map = {str(v): k for k, v in name_to_idx_map.items()}
 
         mol = Chem.MolFromSmiles(current_monomer_yaml["smiles"])
         mol = Chem.AddHs(mol)
         AllChem.EmbedMolecule(mol, AllChem.ETKDG())
         rw_mol = Chem.RWMol(mol)
 
+        # Set PDB info for each atom in the current monomer
+        residue_name = m_id.ljust(3)
+        residue_number = i + 1
+        for atom in rw_mol.GetAtoms():
+            atom_idx_str = str(atom.GetIdx())
+            atom_name = idx_to_name_map.get(atom_idx_str, atom.GetSymbol())
+            info = AtomPDBResidueInfo()
+            info.SetName(f" {atom_name.ljust(3)}")
+            info.SetResidueName(residue_name)
+            info.SetResidueNumber(residue_number)
+            info.SetIsHeteroAtom(False)
+            atom.SetMonomerInfo(info)
+
         if i == 0:
             positioned_mol = rw_mol
-            # Create the initial uniquely-named map
-            for k, v in current_atom_names_map.items():
-                positioned_atom_names_map[k] = f"{m_id}:{v}"
+            # Create the initial uniquely-named map from index -> monomer:atom_name
+            for idx, name in idx_to_name_map.items():
+                positioned_atom_names_map[idx] = f"{m_id}:{name}"
         else:
             prev_monomer_id = prev_monomer_yaml['monomer_id']
+            prev_polymer_type = prev_monomer_yaml['polymer_type']
             prev_conns = [merge_standard(c, std_conns) for c in prev_monomer_yaml.get("connections", [])]
             curr_conns = [merge_standard(c, std_conns) for c in current_monomer_yaml.get("connections", [])]
 
-            prev_cterm = next(c for c in prev_conns if "C_term" in c["label"])
-            curr_nterm = next(c for c in curr_conns if "N_term" in c["label"])
+            if prev_polymer_type == "PEPTIDE":
+                prev_cterm = next((c for c in prev_conns if "C_term" in c["label"]), None)
+                curr_nterm = next((c for c in curr_conns if "N_term" in c["label"]), None)
+            elif prev_polymer_type == "RNA":
+                prev_cterm = next((c for c in prev_conns if "3_prime" in c["label"]), None)
+                curr_nterm = next((c for c in curr_conns if "5_prime" in c["label"]), None)
+            else:
+                raise ValueError(f"Unsupported polymer type for connection: {prev_polymer_type}")
+
+            if not prev_cterm or not curr_nterm:
+                raise ValueError(f"Could not find required connection points for linking {prev_monomer_id} to {m_id}")
 
             log(f"[Connection] Linking {prev_monomer_id}->{m_id}")
             log(f"   Prev connect_atom: {prev_cterm['connect_atom']}")
             log(f"   Curr connect_atom: {curr_nterm['connect_atom']}")
 
             remove_atoms_by_names(positioned_mol, positioned_atom_names_map, prev_cterm.get("remove_atoms_on_connect", []), prev_monomer_id)
-            remove_atoms_by_names(rw_mol, {k: f"{m_id}:{v}" for k, v in current_atom_names_map.items()}, curr_nterm.get("remove_atoms_on_connect", []), m_id)
+            # For local cap removal, we must create a temporary map with prefixed names
+            # so that find_atom_index_by_name can find them correctly.
+            local_map_for_removal = {idx: f"{m_id}:{name}" for idx, name in idx_to_name_map.items()}
+            remove_atoms_by_names(rw_mol, local_map_for_removal, curr_nterm.get("remove_atoms_on_connect", []), m_id)
+
+            # Programmatically remove capping H from previous monomer's connection atom (e.g., O3')
+            # This is more robust than relying on named H atoms in the monomer files.
+            prev_idx_for_H_removal = find_atom_index_by_name(positioned_atom_names_map, prev_cterm["connect_atom"], prev_monomer_id)
+            prev_atom_for_H_removal = positioned_mol.GetAtomWithIdx(prev_idx_for_H_removal)
+            if prev_atom_for_H_removal.GetAtomicNum() == 8: # If it's an Oxygen...
+                h_to_remove = -1
+                for neighbor in prev_atom_for_H_removal.GetNeighbors():
+                    if neighbor.GetAtomicNum() == 1:
+                        h_to_remove = neighbor.GetIdx()
+                        break
+                if h_to_remove != -1:
+                    log(f"   [Cap Removal] Programmatically removing H (idx {h_to_remove}) from {prev_monomer_id}:{prev_cterm['connect_atom']}")
+                    positioned_mol.RemoveAtom(h_to_remove)
 
             positioned_conf = positioned_mol.GetConformer()
             prev_idx = find_atom_index_by_name(positioned_atom_names_map, prev_cterm["connect_atom"], prev_monomer_id)
@@ -159,7 +199,8 @@ def build_sequence(seq_def):
             prev_neigh_coord = np.array(positioned_conf.GetAtomPosition(prev_neigh_idx))
 
             curr_conf = rw_mol.GetConformer()
-            curr_idx = find_atom_index_by_name(current_atom_names_map, curr_nterm["connect_atom"]) # Search local map before it's merged
+            # For local search, pass the local index:name map and no monomer_id
+            curr_idx = find_atom_index_by_name(idx_to_name_map, curr_nterm["connect_atom"])
             curr_coord = np.array(curr_conf.GetAtomPosition(curr_idx))
             curr_neigh_idx = [n.GetIdx() for n in rw_mol.GetAtomWithIdx(curr_idx).GetNeighbors()][0]
             curr_neigh_coord = np.array(curr_conf.GetAtomPosition(curr_neigh_idx))
@@ -205,8 +246,8 @@ def build_sequence(seq_def):
 
             # Merge atom name maps with unique names
             new_positioned_atom_names_map = dict(positioned_atom_names_map)
-            for k, v in current_atom_names_map.items():
-                new_positioned_atom_names_map[str(int(k) + offset)] = f"{m_id}:{v}"
+            for idx, name in idx_to_name_map.items():
+                new_positioned_atom_names_map[str(int(idx) + offset)] = f"{m_id}:{name}"
 
             positioned_mol = combo_rw
             positioned_atom_names_map = new_positioned_atom_names_map
