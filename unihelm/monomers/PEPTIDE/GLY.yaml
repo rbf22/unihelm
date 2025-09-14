@@ -5,14 +5,14 @@ polymer_type: PEPTIDE
 smiles: NCC(=O)O
 atom_names:
   N: 0
-  Cα: 1
+  CA: 1
   C: 2
   O: 3
   O': 4
   H1: 5
   H2: 6
-  Hα1: 7
-  Hα2: 8
+  HA1: 7
+  HA2: 8
   HO': 9
 connections:
 - id: R1
@@ -31,13 +31,13 @@ connections:
 geometry:
   bonds:
   - atoms:
-    - Cα
+    - CA
     - N
     length: 1.46
     type: 1
   - atoms:
     - C
-    - Cα
+    - CA
     length: 1.498
     type: 1
   - atoms:
@@ -61,13 +61,13 @@ geometry:
     length: 1.046
     type: 1
   - atoms:
-    - Cα
-    - Hα1
+    - CA
+    - HA1
     length: 1.111
     type: 1
   - atoms:
-    - Cα
-    - Hα2
+    - CA
+    - HA2
     length: 1.112
     type: 1
   - atoms:
@@ -76,47 +76,47 @@ geometry:
     length: 1.013
     type: 1
   angles:
-  - { atoms: [N, Cα, C], angle: 111.0 }
-  - { atoms: [N, Cα, Hα1], angle: 109.3 }
-  - { atoms: [N, Cα, Hα2], angle: 109.4 }
-  - { atoms: [Cα, N, H1], angle: 108.8 }
-  - { atoms: [Cα, N, H2], angle: 108.8 }
-  - { atoms: [Cα, C, O], angle: 120.1 }
-  - { atoms: [Cα, C, O'], angle: 119.9 }
-  - { atoms: [C, Cα, N], angle: 111.0 }
-  - { atoms: [C, Cα, Hα1], angle: 109.4 }
-  - { atoms: [C, Cα, Hα2], angle: 109.8 }
+  - { atoms: [N, CA, C], angle: 111.0 }
+  - { atoms: [N, CA, HA1], angle: 109.3 }
+  - { atoms: [N, CA, HA2], angle: 109.4 }
+  - { atoms: [CA, N, H1], angle: 108.8 }
+  - { atoms: [CA, N, H2], angle: 108.8 }
+  - { atoms: [CA, C, O], angle: 120.1 }
+  - { atoms: [CA, C, O'], angle: 119.9 }
+  - { atoms: [C, CA, N], angle: 111.0 }
+  - { atoms: [C, CA, HA1], angle: 109.4 }
+  - { atoms: [C, CA, HA2], angle: 109.8 }
   - { atoms: [C, O', HO'], angle: 120.8 }
-  - { atoms: [O, C, Cα], angle: 120.1 }
+  - { atoms: [O, C, CA], angle: 120.1 }
   - { atoms: [O, C, O'], angle: 120.0 }
-  - { atoms: [O', C, Cα], angle: 119.9 }
+  - { atoms: [O', C, CA], angle: 119.9 }
   - { atoms: [O', C, O], angle: 120.0 }
-  - { atoms: [H1, N, Cα], angle: 108.8 }
+  - { atoms: [H1, N, CA], angle: 108.8 }
   - { atoms: [H1, N, H2], angle: 107.7 }
-  - { atoms: [H2, N, Cα], angle: 108.8 }
+  - { atoms: [H2, N, CA], angle: 108.8 }
   - { atoms: [H2, N, H1], angle: 107.7 }
-  - { atoms: [Hα1, Cα, N], angle: 109.3 }
-  - { atoms: [Hα1, Cα, C], angle: 109.4 }
-  - { atoms: [Hα1, Cα, Hα2], angle: 107.8 }
-  - { atoms: [Hα2, Cα, N], angle: 109.4 }
-  - { atoms: [Hα2, Cα, C], angle: 109.8 }
-  - { atoms: [Hα2, Cα, Hα1], angle: 107.8 }
+  - { atoms: [HA1, CA, N], angle: 109.3 }
+  - { atoms: [HA1, CA, C], angle: 109.4 }
+  - { atoms: [HA1, CA, HA2], angle: 107.8 }
+  - { atoms: [HA2, CA, N], angle: 109.4 }
+  - { atoms: [HA2, CA, C], angle: 109.8 }
+  - { atoms: [HA2, CA, HA1], angle: 107.8 }
   - { atoms: [HO', O', C], angle: 120.8 }
 rotamers:
 - id: gly_rotamer_1
   relative_energy_kcal_mol: 0.6531
   dihedrals:
-  - { atoms: [H1, N, Cα, C], dihedral: -58.7 }
-  - { atoms: [H1, N, Cα, Hα1], dihedral: -179.6 }
-  - { atoms: [H1, N, Cα, Hα2], dihedral: 62.6 }
-  - { atoms: [H2, N, Cα, C], dihedral: 58.3 }
-  - { atoms: [H2, N, Cα, Hα1], dihedral: -62.5 }
-  - { atoms: [H2, N, Cα, Hα2], dihedral: 179.6 }
-  - { atoms: [N, Cα, C, O], dihedral: 89.5 }
-  - { atoms: [N, Cα, C, O'], dihedral: -88.4 }
-  - { atoms: [Hα1, Cα, C, O], dihedral: -149.8 }
-  - { atoms: [Hα1, Cα, C, O'], dihedral: 32.3 }
-  - { atoms: [Hα2, Cα, C, O], dihedral: -31.6 }
-  - { atoms: [Hα2, Cα, C, O'], dihedral: 150.5 }
-  - { atoms: [Cα, C, O', HO'], dihedral: 178.9 }
+  - { atoms: [H1, N, CA, C], dihedral: -58.7 }
+  - { atoms: [H1, N, CA, HA1], dihedral: -179.6 }
+  - { atoms: [H1, N, CA, HA2], dihedral: 62.6 }
+  - { atoms: [H2, N, CA, C], dihedral: 58.3 }
+  - { atoms: [H2, N, CA, HA1], dihedral: -62.5 }
+  - { atoms: [H2, N, CA, HA2], dihedral: 179.6 }
+  - { atoms: [N, CA, C, O], dihedral: 89.5 }
+  - { atoms: [N, CA, C, O'], dihedral: -88.4 }
+  - { atoms: [HA1, CA, C, O], dihedral: -149.8 }
+  - { atoms: [HA1, CA, C, O'], dihedral: 32.3 }
+  - { atoms: [HA2, CA, C, O], dihedral: -31.6 }
+  - { atoms: [HA2, CA, C, O'], dihedral: 150.5 }
+  - { atoms: [CA, C, O', HO'], dihedral: 178.9 }
   - { atoms: [O, C, O', HO'], dihedral: 1.1 }
