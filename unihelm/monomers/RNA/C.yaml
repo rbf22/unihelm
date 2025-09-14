@@ -24,21 +24,21 @@ atom_names:
   O4': 14
   C5': 15
   O5': 16
-  H2T: 17
-  H3T: 18
-  H5T: 19
+  HO2': 17
+  HO3': 18
+  HO5': 19
 
 connections:
   - id: R1
     label: 3_prime
     connect_atom: "O3'"
-    remove_atoms_on_connect: [H3T]
+    remove_atoms_on_connect: [HO3']
     type: Polymer
     use_standard: rna_3prime
   - id: R2
     label: 5_prime
     connect_atom: "O5'"
-    remove_atoms_on_connect: [H5T]
+    remove_atoms_on_connect: [HO5']
     type: Polymer
     use_standard: rna_5prime
 

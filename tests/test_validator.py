@@ -11,7 +11,7 @@ def test_load_yaml(tmp_path):
     assert data == {"key": "value"}
 
 def test_get_atom_names_from_map():
-    data = {"atom_names": {"1": "N", "2": "CA", "3": "C"}}
+    data = {"atom_names": {"N": 1, "CA": 2, "C": 3}}
     mol = Chem.MolFromSmiles("NCC")
     names = get_atom_names(data, mol)
     assert names == {"N", "CA", "C"}

@@ -8,20 +8,21 @@ smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O"
 
 atom_names:
   N: 0
-  CA: 1
-  CB: 2
-  CG: 3
-  CD1: 4
-  CD2: 5
-  CE1: 6
-  CE2: 7
-  CZ: 8
+  Cα: 1
+  Cβ: 2
+  Cγ: 3
+  Cδ1: 4
+  Cδ2: 5
+  Cε1: 6
+  Cε2: 7
+  Cζ: 8
   OH: 9
   C: 10
   O: 11
-  OXT: 12
+  O': 12
   H: 13
-  HA: 14
+  Hα: 14
+  HO': 15
 
 connections:
   - id: R1
@@ -34,20 +35,20 @@ connections:
   - id: R2
     label: C_terminal
     connect_atom: C
-    remove_atoms_on_connect: [OXT]
+    remove_atoms_on_connect: [O']
     order: 1
     type: Polymer
     use_standard: peptide_C
 
 rigid_groups:
   - id: backbone
-    atoms: [N, CA, C, O]
+    atoms: [N, Cα, C, O]
   - id: aromatic_ring
-    atoms: [CG, CD1, CD2, CE1, CE2, CZ, OH]
+    atoms: [Cγ, Cδ1, Cδ2, Cε1, Cε2, Cζ, OH]
 special_torsions:
   - name: chi1
-    atoms: [N, CA, CB, CG]
+    atoms: [N, Cα, Cβ, Cγ]
     library_key: "chi1_tyr"
   - name: chi2
-    atoms: [CA, CB, CG, CD1]
+    atoms: [Cα, Cβ, Cγ, Cδ1]
     library_key: "aromatic_sidechain"

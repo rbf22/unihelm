@@ -1,43 +1,43 @@
 format: UniHelm YAML
-version: '2.1'
+version: '1.0'
 monomer_id: GLY
 polymer_type: PEPTIDE
 smiles: NCC(=O)O
 atom_names:
-  C: 2
   N: 0
+  Cα: 1
+  C: 2
   O: 3
-  OXT: 4
-  C1: 1
-  H1N: 5
-  H2N: 6
-  H1C1: 7
-  H2C1: 8
-  H1OXT: 9
+  O': 4
+  H1: 5
+  H2: 6
+  Hα1: 7
+  Hα2: 8
+  HO': 9
 connections:
 - id: R1
   label: N_term
   connect_atom: N
   remove_atoms_on_connect:
-  - H1N
+  - H1
   use_standard: peptide_N
 - id: R2
   label: C_term
   connect_atom: C
   remove_atoms_on_connect:
-  - OXT
-  - H1OXT
+  - O'
+  - HO'
   use_standard: peptide_C
 geometry:
   bonds:
   - atoms:
-    - C1
+    - Cα
     - N
     length: 1.46
     type: 1
   - atoms:
     - C
-    - C1
+    - Cα
     length: 1.498
     type: 1
   - atoms:
@@ -47,250 +47,76 @@ geometry:
     type: 2
   - atoms:
     - C
-    - OXT
+    - O'
     length: 1.391
     type: 1
   - atoms:
-    - H1N
+    - H1
     - N
     length: 1.046
     type: 1
   - atoms:
-    - H2N
+    - H2
     - N
     length: 1.046
     type: 1
   - atoms:
-    - C1
-    - H1C1
+    - Cα
+    - Hα1
     length: 1.111
     type: 1
   - atoms:
-    - C1
-    - H2C1
+    - Cα
+    - Hα2
     length: 1.112
     type: 1
   - atoms:
-    - H1OXT
-    - OXT
+    - HO'
+    - O'
     length: 1.013
     type: 1
   angles:
-  - atoms:
-    - N
-    - C1
-    - C
-    angle: 111.0
-  - atoms:
-    - N
-    - C1
-    - H1C1
-    angle: 109.3
-  - atoms:
-    - N
-    - C1
-    - H2C1
-    angle: 109.4
-  - atoms:
-    - C1
-    - N
-    - H1N
-    angle: 108.8
-  - atoms:
-    - C1
-    - N
-    - H2N
-    angle: 108.8
-  - atoms:
-    - C1
-    - C
-    - O
-    angle: 120.1
-  - atoms:
-    - C1
-    - C
-    - OXT
-    angle: 119.9
-  - atoms:
-    - C
-    - C1
-    - N
-    angle: 111.0
-  - atoms:
-    - C
-    - C1
-    - H1C1
-    angle: 109.4
-  - atoms:
-    - C
-    - C1
-    - H2C1
-    angle: 109.8
-  - atoms:
-    - C
-    - OXT
-    - H1OXT
-    angle: 120.8
-  - atoms:
-    - O
-    - C
-    - C1
-    angle: 120.1
-  - atoms:
-    - O
-    - C
-    - OXT
-    angle: 120.0
-  - atoms:
-    - OXT
-    - C
-    - C1
-    angle: 119.9
-  - atoms:
-    - OXT
-    - C
-    - O
-    angle: 120.0
-  - atoms:
-    - H1N
-    - N
-    - C1
-    angle: 108.8
-  - atoms:
-    - H1N
-    - N
-    - H2N
-    angle: 107.7
-  - atoms:
-    - H2N
-    - N
-    - C1
-    angle: 108.8
-  - atoms:
-    - H2N
-    - N
-    - H1N
-    angle: 107.7
-  - atoms:
-    - H1C1
-    - C1
-    - N
-    angle: 109.3
-  - atoms:
-    - H1C1
-    - C1
-    - C
-    angle: 109.4
-  - atoms:
-    - H1C1
-    - C1
-    - H2C1
-    angle: 107.8
-  - atoms:
-    - H2C1
-    - C1
-    - N
-    angle: 109.4
-  - atoms:
-    - H2C1
-    - C1
-    - C
-    angle: 109.8
-  - atoms:
-    - H2C1
-    - C1
-    - H1C1
-    angle: 107.8
-  - atoms:
-    - H1OXT
-    - OXT
-    - C
-    angle: 120.8
+  - { atoms: [N, Cα, C], angle: 111.0 }
+  - { atoms: [N, Cα, Hα1], angle: 109.3 }
+  - { atoms: [N, Cα, Hα2], angle: 109.4 }
+  - { atoms: [Cα, N, H1], angle: 108.8 }
+  - { atoms: [Cα, N, H2], angle: 108.8 }
+  - { atoms: [Cα, C, O], angle: 120.1 }
+  - { atoms: [Cα, C, O'], angle: 119.9 }
+  - { atoms: [C, Cα, N], angle: 111.0 }
+  - { atoms: [C, Cα, Hα1], angle: 109.4 }
+  - { atoms: [C, Cα, Hα2], angle: 109.8 }
+  - { atoms: [C, O', HO'], angle: 120.8 }
+  - { atoms: [O, C, Cα], angle: 120.1 }
+  - { atoms: [O, C, O'], angle: 120.0 }
+  - { atoms: [O', C, Cα], angle: 119.9 }
+  - { atoms: [O', C, O], angle: 120.0 }
+  - { atoms: [H1, N, Cα], angle: 108.8 }
+  - { atoms: [H1, N, H2], angle: 107.7 }
+  - { atoms: [H2, N, Cα], angle: 108.8 }
+  - { atoms: [H2, N, H1], angle: 107.7 }
+  - { atoms: [Hα1, Cα, N], angle: 109.3 }
+  - { atoms: [Hα1, Cα, C], angle: 109.4 }
+  - { atoms: [Hα1, Cα, Hα2], angle: 107.8 }
+  - { atoms: [Hα2, Cα, N], angle: 109.4 }
+  - { atoms: [Hα2, Cα, C], angle: 109.8 }
+  - { atoms: [Hα2, Cα, Hα1], angle: 107.8 }
+  - { atoms: [HO', O', C], angle: 120.8 }
 rotamers:
 - id: gly_rotamer_1
   relative_energy_kcal_mol: 0.6531
   dihedrals:
-  - atoms:
-    - H1N
-    - N
-    - C1
-    - C
-    dihedral: -58.7
-  - atoms:
-    - H1N
-    - N
-    - C1
-    - H1C1
-    dihedral: -179.6
-  - atoms:
-    - H1N
-    - N
-    - C1
-    - H2C1
-    dihedral: 62.6
-  - atoms:
-    - H2N
-    - N
-    - C1
-    - C
-    dihedral: 58.3
-  - atoms:
-    - H2N
-    - N
-    - C1
-    - H1C1
-    dihedral: -62.5
-  - atoms:
-    - H2N
-    - N
-    - C1
-    - H2C1
-    dihedral: 179.6
-  - atoms:
-    - N
-    - C1
-    - C
-    - O
-    dihedral: 89.5
-  - atoms:
-    - N
-    - C1
-    - C
-    - OXT
-    dihedral: -88.4
-  - atoms:
-    - H1C1
-    - C1
-    - C
-    - O
-    dihedral: -149.8
-  - atoms:
-    - H1C1
-    - C1
-    - C
-    - OXT
-    dihedral: 32.3
-  - atoms:
-    - H2C1
-    - C1
-    - C
-    - O
-    dihedral: -31.6
-  - atoms:
-    - H2C1
-    - C1
-    - C
-    - OXT
-    dihedral: 150.5
-  - atoms:
-    - C1
-    - C
-    - OXT
-    - H1OXT
-    dihedral: 178.9
-  - atoms:
-    - O
-    - C
-    - OXT
-    - H1OXT
-    dihedral: 1.1
+  - { atoms: [H1, N, Cα, C], dihedral: -58.7 }
+  - { atoms: [H1, N, Cα, Hα1], dihedral: -179.6 }
+  - { atoms: [H1, N, Cα, Hα2], dihedral: 62.6 }
+  - { atoms: [H2, N, Cα, C], dihedral: 58.3 }
+  - { atoms: [H2, N, Cα, Hα1], dihedral: -62.5 }
+  - { atoms: [H2, N, Cα, Hα2], dihedral: 179.6 }
+  - { atoms: [N, Cα, C, O], dihedral: 89.5 }
+  - { atoms: [N, Cα, C, O'], dihedral: -88.4 }
+  - { atoms: [Hα1, Cα, C, O], dihedral: -149.8 }
+  - { atoms: [Hα1, Cα, C, O'], dihedral: 32.3 }
+  - { atoms: [Hα2, Cα, C, O], dihedral: -31.6 }
+  - { atoms: [Hα2, Cα, C, O'], dihedral: 150.5 }
+  - { atoms: [Cα, C, O', HO'], dihedral: 178.9 }
+  - { atoms: [O, C, O', HO'], dihedral: 1.1 }

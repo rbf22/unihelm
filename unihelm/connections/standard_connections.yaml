@@ -7,10 +7,10 @@ standard_connections:
       partner_atom: C_prev
       length: 1.329
     angle:
-      atoms: [C_prev, N, CA]
+      atoms: [C_prev, N, Cα]
       value: 121.7
     dihedral:
-      atoms: [CA_prev, C_prev, N, CA]
+      atoms: [Cα_prev, C_prev, N, Cα]
       default: 180.0
       library: peptide_omega
 
@@ -19,10 +19,10 @@ standard_connections:
       partner_atom: N_next
       length: 1.329
     angle:
-      atoms: [CA, C, N_next]
+      atoms: [Cα, C, N_next]
       value: 116.0
     dihedral:
-      atoms: [N, CA, C, N_next]
+      atoms: [N, Cα, C, N_next]
       default: 180.0
 
   rna_3prime:
@@ -67,3 +67,23 @@ standard_connections:
     bond:
       partner_atom: LIG
       length: 2.000
+  dna_3prime:
+    bond:
+      partner_atom: P_next
+      length: 1.61
+    angle:
+      atoms: ["C3'", "O3'", P_next]
+      value: 121.3
+    dihedral:
+      atoms: ["C4'", "C3'", "O3'", P_next]
+      default: 180.0
+  dna_5prime:
+    bond:
+      partner_atom: O3_prev
+      length: 1.61
+    angle:
+      atoms: [O3_prev, "O5'", "C5'"]
+      value: 118.9
+    dihedral:
+      atoms: ["C3'", O3_prev, "O5'", "C5'"]
+      default: 180.0
