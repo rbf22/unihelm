@@ -1,15 +1,15 @@
 format: UniHelm YAML
 version: '1.0'
-monomer_id: MET
+monomer_id: ASN
 polymer_type: PEPTIDE
-smiles: "CC(C)CSC(C(=O)O)N"
+smiles: "NC(CC(=O)N)C(=O)O"
 atom_names:
   N: 0
   CA: 1
   CB: 2
   CG: 3
-  SD: 4
-  CE: 5
+  OD1: 4
+  ND2: 5
   C: 6
   O: 7
   OXT: 8
@@ -17,12 +17,9 @@ atom_names:
   HA: 10
   HB1: 11
   HB2: 12
-  HG1: 13
-  HG2: 14
-  HE1: 15
-  HE2: 16
-  HE3: 17
-  HXT: 18
+  HD21: 13
+  HD22: 14
+  HXT: 15
 connections:
 - id: R1
   label: N_term
@@ -41,4 +38,4 @@ rigid_bodies:
 - id: backbone
   atoms: [N, CA, C, O, HN, HA]
 - id: side_chain
-  atoms: [CB, CG, SD, CE, HB1, HB2, HG1, HG2, HE1, HE2, HE3]
+  atoms: [CB, CG, OD1, ND2, HB1, HB2, HD21, HD22]

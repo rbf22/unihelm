@@ -1,0 +1,43 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: DA
+polymer_type: DNA
+smiles: "Nc1ncnc2n(cnc12)[C@H]3C[C@H](O)[C@@H](COP(O)(O)=O)O3"
+atom_names:
+  P: 0
+  O1P: 1
+  O2P: 2
+  O5': 3
+  C5': 4
+  C4': 5
+  O4': 6
+  C1': 7
+  N9: 8
+  C4: 9
+  N3: 10
+  C2: 11
+  N1: 12
+  C6: 13
+  N6: 14
+  H61: 15
+  H62: 16
+  C5: 17
+  N7: 18
+  C8: 19
+  C2': 20
+  C3': 21
+  O3': 22
+connections:
+- id: R1
+  label: 5_prime
+  connect_atom: P
+  use_standard: dna_5prime
+- id: R2
+  label: 3_prime
+  connect_atom: O3'
+  use_standard: dna_3prime
+rigid_bodies:
+- id: base
+  atoms: [N9, C4, N3, C2, N1, C6, N6, H61, H62, C5, N7, C8]
+- id: backbone
+  atoms: [P, O1P, O2P, O5', C5', C4', O4', C1', C2', C3', O3']

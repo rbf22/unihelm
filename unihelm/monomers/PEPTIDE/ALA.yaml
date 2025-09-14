@@ -2,114 +2,103 @@ format: UniHelm YAML
 version: '1.0'
 monomer_id: ALA
 polymer_type: PEPTIDE
-smiles: "N[C@@H](C)C(=O)O"
+smiles: "CC(C(=O)O)N"
 atom_names:
   N: 0
-  Cα: 1
+  CA: 1
   C: 2
   O: 3
-  Cβ: 4
-  O': 5
-  H: 6
-  Hα: 7
-  Hβ1: 8
-  Hβ2: 9
-  Hβ3: 10
-  HO': 11
+  CB: 4
+  OXT: 5
+  HN: 6
+  HA: 7
+  HB1: 8
+  HB2: 9
+  HB3: 10
+  HXT: 11
 connections:
 - id: R1
   label: N_term
   connect_atom: N
   remove_atoms_on_connect:
-  - H
+  - HN
   use_standard: peptide_N
 - id: R2
   label: C_term
   connect_atom: C
   remove_atoms_on_connect:
-  - O'
-  - HO'
+  - OXT
+  - HXT
   use_standard: peptide_C
 geometry:
   bonds:
-  - atoms: [Cα, N]
-    length: 1.464
-  - atoms: [Cα, Cβ]
-    length: 1.53
-  - atoms: [C, Cα]
-    length: 1.506
-  - atoms: [C, O]
-    length: 1.261
-  - atoms: [C, O']
-    length: 1.391
-  - atoms: [H, N]
-    length: 1.046
-  - atoms: [Cα, Hα]
-    length: 1.113
-  - atoms: [Cβ, Hβ1]
-    length: 1.111
-  - atoms: [Cβ, Hβ2]
-    length: 1.111
-  - atoms: [Cβ, Hβ3]
-    length: 1.111
-  - atoms: [HO', O']
-    length: 1.013
+  - { atoms: [CA, N], length: 1.464, type: 1 }
+  - { atoms: [CA, CB], length: 1.53, type: 1 }
+  - { atoms: [C, CA], length: 1.506, type: 1 }
+  - { atoms: [C, O], length: 1.261, type: 2 }
+  - { atoms: [C, OXT], length: 1.391, type: 1 }
+  - { atoms: [HN, N], length: 1.046, type: 1 }
+  - { atoms: [CA, HA], length: 1.113, type: 1 }
+  - { atoms: [CB, HB1], length: 1.111, type: 1 }
+  - { atoms: [CB, HB2], length: 1.111, type: 1 }
+  - { atoms: [CB, HB3], length: 1.111, type: 1 }
+  - { atoms: [HXT, OXT], length: 1.013, type: 1 }
   angles:
-  - { atoms: [N, Cα, Cβ], angle: 110.2 }
-  - { atoms: [N, Cα, C], angle: 111.1 }
-  - { atoms: [N, Cα, Hα], angle: 108.4 }
-  - { atoms: [Cα, N, H], angle: 108.6 }
-  - { atoms: [Cα, Cβ, Hβ1], angle: 109.8 }
-  - { atoms: [Cα, Cβ, Hβ2], angle: 110.1 }
-  - { atoms: [Cα, Cβ, Hβ3], angle: 110.8 }
-  - { atoms: [Cα, C, O], angle: 120.4 }
-  - { atoms: [Cα, C, O'], angle: 119.8 }
-  - { atoms: [Cβ, Cα, N], angle: 110.2 }
-  - { atoms: [Cβ, Cα, C], angle: 110.8 }
-  - { atoms: [Cβ, Cα, Hα], angle: 107.7 }
-  - { atoms: [C, Cα, N], angle: 111.1 }
-  - { atoms: [C, Cα, Cβ], angle: 110.8 }
-  - { atoms: [C, Cα, Hα], angle: 108.6 }
-  - { atoms: [C, O', HO'], angle: 120.9 }
-  - { atoms: [O, C, Cα], angle: 120.4 }
-  - { atoms: [O, C, O'], angle: 119.8 }
-  - { atoms: [O', C, Cα], angle: 119.8 }
-  - { atoms: [O', C, O], angle: 119.8 }
-  - { atoms: [H, N, Cα], angle: 108.6 }
-  - { atoms: [Hα, Cα, N], angle: 108.4 }
-  - { atoms: [Hα, Cα, Cβ], angle: 107.7 }
-  - { atoms: [Hα, Cα, C], angle: 108.6 }
-  - { atoms: [Hβ1, Cβ, Cα], angle: 109.8 }
-  - { atoms: [Hβ1, Cβ, Hβ2], angle: 108.4 }
-  - { atoms: [Hβ1, Cβ, Hβ3], angle: 108.7 }
-  - { atoms: [Hβ2, Cβ, Cα], angle: 110.1 }
-  - { atoms: [Hβ2, Cβ, Hβ1], angle: 108.4 }
-  - { atoms: [Hβ2, Cβ, Hβ3], angle: 109.0 }
-  - { atoms: [Hβ3, Cβ, Cα], angle: 110.8 }
-  - { atoms: [Hβ3, Cβ, Hβ1], angle: 108.7 }
-  - { atoms: [Hβ3, Cβ, Hβ2], angle: 109.0 }
-  - { atoms: [HO', O', C], angle: 120.9 }
+  - { atoms: [N, CA, CB], angle: 110.2 }
+  - { atoms: [N, CA, C], angle: 111.1 }
+  - { atoms: [N, CA, HA], angle: 108.4 }
+  - { atoms: [CA, N, HN], angle: 108.6 }
+  - { atoms: [CA, CB, HB1], angle: 109.8 }
+  - { atoms: [CA, CB, HB2], angle: 110.1 }
+  - { atoms: [CA, CB, HB3], angle: 110.8 }
+  - { atoms: [CA, C, O], angle: 120.4 }
+  - { atoms: [CA, C, OXT], angle: 119.8 }
+  - { atoms: [CB, CA, N], angle: 110.2 }
+  - { atoms: [CB, CA, C], angle: 110.8 }
+  - { atoms: [CB, CA, HA], angle: 107.7 }
+  - { atoms: [C, CA, N], angle: 111.1 }
+  - { atoms: [C, CA, CB], angle: 110.8 }
+  - { atoms: [C, CA, HA], angle: 108.6 }
+  - { atoms: [C, OXT, HXT], angle: 120.9 }
+  - { atoms: [O, C, CA], angle: 120.4 }
+  - { atoms: [O, C, OXT], angle: 119.8 }
+  - { atoms: [OXT, C, CA], angle: 119.8 }
+  - { atoms: [OXT, C, O], angle: 119.8 }
+  - { atoms: [HN, N, CA], angle: 108.6 }
+  - { atoms: [HA, CA, N], angle: 108.4 }
+  - { atoms: [HA, CA, CB], angle: 107.7 }
+  - { atoms: [HA, CA, C], angle: 108.6 }
+  - { atoms: [HB1, CB, CA], angle: 109.8 }
+  - { atoms: [HB1, CB, HB2], angle: 108.4 }
+  - { atoms: [HB1, CB, HB3], angle: 108.7 }
+  - { atoms: [HB2, CB, CA], angle: 110.1 }
+  - { atoms: [HB2, CB, HB1], angle: 108.4 }
+  - { atoms: [HB2, CB, HB3], angle: 109.0 }
+  - { atoms: [HB3, CB, CA], angle: 110.8 }
+  - { atoms: [HB3, CB, HB1], angle: 108.7 }
+  - { atoms: [HB3, CB, HB2], angle: 109.0 }
+  - { atoms: [HXT, OXT, C], angle: 120.9 }
 rotamers:
 - id: ala_rotamer_1
   relative_energy_kcal_mol: 0.7739
   dihedrals:
-  - { atoms: [H, N, Cα, Cβ], dihedral: 177.0 }
-  - { atoms: [H, N, Cα, C], dihedral: -59.8 }
-  - { atoms: [H, N, Cα, Hα], dihedral: 59.4 }
-  - { atoms: [N, Cα, Cβ, Hβ1], dihedral: -58.7 }
-  - { atoms: [N, Cα, Cβ, Hβ2], dihedral: -178.0 }
-  - { atoms: [N, Cα, Cβ, Hβ3], dihedral: 61.4 }
-  - { atoms: [C, Cα, Cβ, Hβ1], dihedral: 178.0 }
-  - { atoms: [C, Cα, Cβ, Hβ2], dihedral: 58.7 }
-  - { atoms: [C, Cα, Cβ, Hβ3], dihedral: -61.9 }
-  - { atoms: [Hα, Cα, Cβ, Hβ1], dihedral: 59.3 }
-  - { atoms: [Hα, Cα, Cβ, Hβ2], dihedral: -60.0 }
-  - { atoms: [Hα, Cα, Cβ, Hβ3], dihedral: 179.4 }
-  - { atoms: [N, Cα, C, O], dihedral: -60.0 }
-  - { atoms: [N, Cα, C, O'], dihedral: 120.1 }
-  - { atoms: [Cβ, Cα, C, O], dihedral: 62.8 }
-  - { atoms: [Cβ, Cα, C, O'], dihedral: -117.1 }
-  - { atoms: [Hα, Cα, C, O], dihedral: -179.1 }
-  - { atoms: [Hα, Cα, C, O'], dihedral: 1.1 }
-  - { atoms: [Cα, C, O', HO'], dihedral: 179.9 }
-  - { atoms: [O, C, O', HO'], dihedral: 0.1 }
+  - { atoms: [HN, N, CA, CB], dihedral: 177.0 }
+  - { atoms: [HN, N, CA, C], dihedral: -59.8 }
+  - { atoms: [HN, N, CA, HA], dihedral: 59.4 }
+  - { atoms: [N, CA, CB, HB1], dihedral: -58.7 }
+  - { atoms: [N, CA, CB, HB2], dihedral: -178.0 }
+  - { atoms: [N, CA, CB, HB3], dihedral: 61.4 }
+  - { atoms: [C, CA, CB, HB1], dihedral: 178.0 }
+  - { atoms: [C, CA, CB, HB2], dihedral: 58.7 }
+  - { atoms: [C, CA, CB, HB3], dihedral: -61.9 }
+  - { atoms: [HA, CA, CB, HB1], dihedral: 59.3 }
+  - { atoms: [HA, CA, CB, HB2], dihedral: -60.0 }
+  - { atoms: [HA, CA, CB, HB3], dihedral: 179.4 }
+  - { atoms: [N, CA, C, O], dihedral: -60.0 }
+  - { atoms: [N, CA, C, OXT], dihedral: 120.1 }
+  - { atoms: [CB, CA, C, O], dihedral: 62.8 }
+  - { atoms: [CB, CA, C, OXT], dihedral: -117.1 }
+  - { atoms: [HA, CA, C, O], dihedral: -179.1 }
+  - { atoms: [HA, CA, C, OXT], dihedral: 1.1 }
+  - { atoms: [CA, C, OXT, HXT], dihedral: 179.9 }
+  - { atoms: [O, C, OXT, HXT], dihedral: 0.1 }

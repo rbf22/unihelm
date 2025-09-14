@@ -1,6 +1,6 @@
 format: UniHelm YAML
 version: '1.0'
-monomer_id: ISO
+monomer_id: TRP
 polymer_type: PEPTIDE
-smiles: CC(C)CC(C(=O)O)N
+smiles: NC(CC1=CNC2=CC=CC=C12)C(=O)O
 status: preliminary

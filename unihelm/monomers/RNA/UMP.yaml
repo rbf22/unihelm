@@ -1,0 +1,42 @@
+format: UniHelm YAML
+version: '1.0'
+monomer_id: UMP
+polymer_type: RNA
+smiles: "c1cn(c(=O)[nH]c1=O)[C@H]2[C@@H]([C@@H]([C@H](O2)COP(=O)(O)O)O)O"
+atom_names:
+  P: 0
+  O1P: 1
+  O2P: 2
+  O5': 3
+  C5': 4
+  C4': 5
+  O4': 6
+  C1': 7
+  N1: 8
+  C6: 9
+  C2: 10
+  O2: 11
+  N3: 12
+  H3: 13
+  C4: 14
+  O4: 15
+  C5: 16
+  C2': 17
+  O2': 18
+  H2': 19
+  C3': 20
+  O3': 21
+connections:
+- id: R1
+  label: 5_prime
+  connect_atom: P
+  use_standard: rna_5prime
+- id: R2
+  label: 3_prime
+  connect_atom: O3'
+  use_standard: rna_3prime
+rigid_bodies:
+- id: base
+  atoms: [N1, C6, C2, O2, N3, H3, C4, O4, C5]
+- id: backbone
+  atoms: [P, O1P, O2P, O5', C5', C4', O4', C1', C2', O2', H2', C3', O3']

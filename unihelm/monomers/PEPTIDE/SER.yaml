@@ -2,5 +2,37 @@ format: UniHelm YAML
 version: '1.0'
 monomer_id: SER
 polymer_type: PEPTIDE
-smiles: NC(CO)C(=O)O
-status: preliminary
+smiles: "NC(CO)C(=O)O"
+atom_names:
+  N: 0
+  CA: 1
+  CB: 2
+  OG: 3
+  C: 4
+  O: 5
+  OXT: 6
+  HN: 7
+  HA: 8
+  HB1: 9
+  HB2: 10
+  HG: 11
+  HXT: 12
+connections:
+- id: R1
+  label: N_term
+  connect_atom: N
+  remove_atoms_on_connect:
+  - HN
+  use_standard: peptide_N
+- id: R2
+  label: C_term
+  connect_atom: C
+  remove_atoms_on_connect:
+  - OXT
+  - HXT
+  use_standard: peptide_C
+rigid_bodies:
+- id: backbone
+  atoms: [N, CA, C, O, HN, HA]
+- id: side_chain
+  atoms: [CB, OG, HB1, HB2, HG]

@@ -2,5 +2,48 @@ format: UniHelm YAML
 version: '1.0'
 monomer_id: LYS
 polymer_type: PEPTIDE
-smiles: NC(CCCCN)C(=O)O
-status: preliminary
+smiles: "NC(CCCCN)C(=O)O"
+atom_names:
+  N: 0
+  CA: 1
+  CB: 2
+  CG: 3
+  CD: 4
+  CE: 5
+  NZ: 6
+  C: 7
+  O: 8
+  OXT: 9
+  HN: 10
+  HA: 11
+  HB1: 12
+  HB2: 13
+  HG1: 14
+  HG2: 15
+  HD1: 16
+  HD2: 17
+  HE1: 18
+  HE2: 19
+  HZ1: 20
+  HZ2: 21
+  HZ3: 22
+  HXT: 23
+connections:
+- id: R1
+  label: N_term
+  connect_atom: N
+  remove_atoms_on_connect:
+  - HN
+  use_standard: peptide_N
+- id: R2
+  label: C_term
+  connect_atom: C
+  remove_atoms_on_connect:
+  - OXT
+  - HXT
+  use_standard: peptide_C
+rigid_bodies:
+- id: backbone
+  atoms: [N, CA, C, O, HN, HA]
+- id: side_chain
+  atoms: [CB, CG, CD, CE, NZ, HB1, HB2, HG1, HG2, HD1, HD2, HE1, HE2, HZ1, HZ2, HZ3]

@@ -4,51 +4,48 @@ monomer_id: TYR
 polymer_type: PEPTIDE
 category: amino_acid
 natural_analog: Y
-smiles: "N[C@@H](Cc1ccc(O)cc1)C(=O)O"
-
+smiles: "NC(CC1=CC=C(O)C=C1)C(=O)O"
 atom_names:
   N: 0
-  Cα: 1
-  Cβ: 2
-  Cγ: 3
-  Cδ1: 4
-  Cδ2: 5
-  Cε1: 6
-  Cε2: 7
-  Cζ: 8
+  CA: 1
+  CB: 2
+  CG: 3
+  CD1: 4
+  CD2: 5
+  CE1: 6
+  CE2: 7
+  CZ: 8
   OH: 9
   C: 10
   O: 11
-  O': 12
-  H: 13
-  Hα: 14
-  HO': 15
-
+  OXT: 12
+  HN: 13
+  HA: 14
+  HXT: 15
 connections:
   - id: R1
     label: N_terminal
     connect_atom: N
-    remove_atoms_on_connect: [H]
+    remove_atoms_on_connect: [HN]
     order: 1
     type: Polymer
     use_standard: peptide_N
   - id: R2
     label: C_terminal
     connect_atom: C
-    remove_atoms_on_connect: [O']
+    remove_atoms_on_connect: [OXT, HXT]
     order: 1
     type: Polymer
     use_standard: peptide_C
-
 rigid_groups:
   - id: backbone
-    atoms: [N, Cα, C, O]
+    atoms: [N, CA, C, O]
   - id: aromatic_ring
-    atoms: [Cγ, Cδ1, Cδ2, Cε1, Cε2, Cζ, OH]
+    atoms: [CG, CD1, CD2, CE1, CE2, CZ, OH]
 special_torsions:
   - name: chi1
-    atoms: [N, Cα, Cβ, Cγ]
+    atoms: [N, CA, CB, CG]
     library_key: "chi1_tyr"
   - name: chi2
-    atoms: [Cα, Cβ, Cγ, Cδ1]
+    atoms: [CA, CB, CG, CD1]
     library_key: "aromatic_sidechain"

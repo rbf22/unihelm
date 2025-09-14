@@ -2,5 +2,45 @@ format: UniHelm YAML
 version: '1.0'
 monomer_id: LEU
 polymer_type: PEPTIDE
-smiles: CC(C)C(C(=O)O)N
-status: preliminary
+smiles: "CC(C)C(C(=O)O)N"
+atom_names:
+  N: 0
+  CA: 1
+  CB: 2
+  CG: 3
+  CD1: 4
+  CD2: 5
+  C: 6
+  O: 7
+  OXT: 8
+  HN: 9
+  HA: 10
+  HB1: 11
+  HB2: 12
+  HG: 13
+  HD11: 14
+  HD12: 15
+  HD13: 16
+  HD21: 17
+  HD22: 18
+  HD23: 19
+  HXT: 20
+connections:
+- id: R1
+  label: N_term
+  connect_atom: N
+  remove_atoms_on_connect:
+  - HN
+  use_standard: peptide_N
+- id: R2
+  label: C_term
+  connect_atom: C
+  remove_atoms_on_connect:
+  - OXT
+  - HXT
+  use_standard: peptide_C
+rigid_bodies:
+- id: backbone
+  atoms: [N, CA, C, O, HN, HA]
+- id: side_chain
+  atoms: [CB, CG, CD1, CD2, HB1, HB2, HG, HD11, HD12, HD13, HD21, HD22, HD23]
