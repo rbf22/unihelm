@@ -221,6 +221,13 @@ def build_sequence(seq_def):
             combo_rw = Chem.RWMol(combo)
             combo_rw.AddBond(prev_idx, offset + curr_idx, Chem.rdchem.BondType.SINGLE)
 
+            # After adding the bond, check if it should be marked as rigid
+            if "dihedral" in prev_cterm:
+                new_bond = combo_rw.GetBondBetweenAtoms(prev_idx, offset + curr_idx)
+                if new_bond:
+                    new_bond.SetBoolProp("is_rigid", True)
+                    log(f"   [Rigidity] Marked bond between atoms {prev_idx} and {offset + curr_idx} as rigid.")
+
             # Merge atom name maps with unique names
             new_positioned_atom_names_map = dict(positioned_atom_names_map)
             for name, idx in current_atom_names_map.items():
