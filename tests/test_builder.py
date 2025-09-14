@@ -1,7 +1,7 @@
 import pytest
 import yaml
 from rdkit import Chem
-from unihelm.tools.unihelm_builder import load_monomer, build_sequence, merge_standard, find_atom_index_by_name
+from unihelm.tools.unihelm_builder import load_monomer, build_sequence, merge_standard
 
 def test_load_monomer():
     monomer = load_monomer("ALA", "PEPTIDE")
@@ -14,16 +14,6 @@ def test_merge_standard():
     std_conns = {"R1-R2": {"bond": {"length": 1.5}}}
     merged = merge_standard(conn, std_conns)
     assert merged["bond"]["length"] == 1.5
-
-def test_find_atom_index_by_name():
-    atom_names_map = {"monomer1:N": "0", "monomer1:CA": "1", "monomer2:C": "2"}
-    index = find_atom_index_by_name(atom_names_map, "CA", "monomer1")
-    assert index == 1
-
-def test_find_atom_index_by_name_not_found():
-    atom_names_map = {"monomer1:N": "0", "monomer1:CA": "1", "monomer2:C": "2"}
-    with pytest.raises(ValueError):
-        find_atom_index_by_name(atom_names_map, "CB", "monomer1")
 
 def test_build_sequence(tmp_path):
     seq_def = {

@@ -43,11 +43,15 @@ def get_atom_names(data, mol):
         return {atom.GetSymbol() + str(i+1) for i, atom in enumerate(mol.GetAtoms())}
 
 def check_connections(data, atom_names, file_id):
+    semantic_map = data.get("semantic_map", {})
+
     for conn in (data.get("connections") or []):
         conn = merge_standard_connection(conn)
-        c_atom = conn["connect_atom"]
-        if c_atom != "*" and c_atom not in atom_names:
-            raise ValueError(f"{file_id}: connect_atom '{c_atom}' not found in atom_names.")
+
+        # If a semantic map is used, the connect_atom might be a semantic name
+        connect_atom_generic = semantic_map.get(conn["connect_atom"], conn["connect_atom"])
+        if connect_atom_generic != "*" and connect_atom_generic not in atom_names:
+            raise ValueError(f"{file_id}: connect_atom '{conn['connect_atom']}' (resolved to '{connect_atom_generic}') not found in atom_names.")
 
         # Check geometry atoms in standard templates
         for geom_key in ("bond", "angle", "dihedral"):
@@ -60,16 +64,26 @@ def check_connections(data, atom_names, file_id):
                 for name in atom_list:
                     if allowed_external(name):
                         continue
-                    if name not in atom_names:
-                        raise ValueError(f"{file_id}: Connection '{conn['id']}' {geom_key} refs unknown atom '{name}'.")
+
+                    # Resolve semantic name if possible
+                    generic_name = semantic_map.get(name, name)
+                    if generic_name not in atom_names:
+                        # Check if the original name was a generic name that should have existed
+                        if name in semantic_map.values() and name not in atom_names:
+                             raise ValueError(f"{file_id}: Connection '{conn['id']}' {geom_key} refs unknown atom '{name}'.")
+                        # Otherwise, the semantic name was not in the map
+                        elif name not in semantic_map:
+                             raise ValueError(f"{file_id}: Connection '{conn['id']}' {geom_key} refs unknown semantic atom '{name}'.")
+                        else:
+                             raise ValueError(f"{file_id}: Connection '{conn['id']}' {geom_key} refs unknown atom '{name}' (resolved to '{generic_name}').")
 
 def validate_yaml(path):
     data = load_yaml(path)
     file_id = data.get("monomer_id", os.path.basename(path))
     if data.get("format") != "UniHelm YAML":
         raise ValueError(f"{file_id}: format must be 'UniHelm YAML'.")
-    if str(data.get("version")) != "1.0":
-        raise ValueError(f"{file_id}: version must be 1.0")
+    if float(data.get("version", 0)) < 1.0:
+        raise ValueError(f"{file_id}: version must be >= 1.0")
     if data["polymer_type"] not in VALID_POLYMER_TYPES:
         raise ValueError(f"{file_id}: Invalid polymer_type '{data['polymer_type']}'")
 

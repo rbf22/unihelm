@@ -43,50 +43,6 @@ def merge_standard(conn, std_conns):
         return merged
     return conn
 
-def find_atom_index_by_name(atom_names_map, atom_name, monomer_id=None):
-    # If the name is external (e.g., C_prev), it won't have a monomer ID.
-    is_external = atom_name.endswith(("_prev", "_next"))
-
-    # Construct the name to search for.
-    search_name = atom_name if is_external else f"{monomer_id}:{atom_name}"
-
-    for name, idx in atom_names_map.items():
-        if name == search_name:
-            return int(idx)
-
-    # Fallback for old-style maps during the first monomer addition
-    if monomer_id is None:
-        for name, idx in atom_names_map.items():
-            if name == atom_name:
-                return int(idx)
-
-    raise ValueError(f"Atom '{search_name}' not found in atom_names_map")
-
-def remove_atoms_by_names(rwmol, atom_names_map, names_to_remove, monomer_id):
-    """
-    Removes specified atoms and any attached hydrogen atoms that would be left with no other bonds.
-    """
-    idxs_to_remove = set()
-    for name in names_to_remove:
-        try:
-            idx = find_atom_index_by_name(atom_names_map, name, monomer_id)
-            atom = rwmol.GetAtomWithIdx(idx)
-
-            # Find hydrogens attached only to this atom
-            for neighbor in atom.GetNeighbors():
-                if neighbor.GetAtomicNum() == 1 and neighbor.GetDegree() == 1:
-                    log(f"   [Cap Removal] Also removing attached H (idx {neighbor.GetIdx()})")
-                    idxs_to_remove.add(neighbor.GetIdx())
-
-            idxs_to_remove.add(idx)
-            log(f"   [Cap Removal] Removing atom {monomer_id}:{name} (idx {idx})")
-        except ValueError as e:
-            log(f"   [Cap Removal] Atom {monomer_id}:{name} not found - skipping. Reason: {e}")
-
-    # Remove all collected atoms, sorted descending to not mess up indices
-    for idx in sorted(list(idxs_to_remove), reverse=True):
-        rwmol.RemoveAtom(idx)
-
 def rotation_matrix_from_vectors(vec1, vec2):
     a = vec1 / np.linalg.norm(vec1)
     b = vec2 / np.linalg.norm(vec2)
@@ -97,9 +53,7 @@ def rotation_matrix_from_vectors(vec1, vec2):
     if np.isclose(c, -1.0):
         return -np.identity(3)
     s = np.linalg.norm(v)
-    kmat = np.array([[0, -v[2], v[1]],
-                     [v[2], 0, -v[0]],
-                     [-v[1], v[0], 0]])
+    kmat = np.array([[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]])
     rotation_matrix = np.identity(3) + kmat + kmat @ kmat * ((1 - c) / (s ** 2))
     return rotation_matrix
 
@@ -115,7 +69,6 @@ def apply_translation(conf, translation):
 
 def build_sequence(seq_def):
     std_conns = load_standard_connections()
-
     positioned_mol = None
     positioned_atom_names_map = {}
     prev_monomer_yaml = None
@@ -125,40 +78,48 @@ def build_sequence(seq_def):
         log(f"\n[Monomer {i+1}] {m_id} ({m_type})")
 
         current_monomer_yaml = load_monomer(m_id, m_type)
-        current_atom_names_map = current_monomer_yaml.get("atom_names", {})
+        current_atom_names = current_monomer_yaml.get("atom_names", {})
+        current_semantic_map = current_monomer_yaml.get("semantic_map", {})
 
         mol = Chem.MolFromSmiles(current_monomer_yaml["smiles"])
         mol = Chem.AddHs(mol)
-        AllChem.EmbedMolecule(mol, AllChem.ETKDG())
+        AllChem.EmbedMolecule(mol)
         rw_mol = Chem.RWMol(mol)
 
         if i == 0:
             positioned_mol = rw_mol
-            # Create the initial uniquely-named map
-            for name, idx in current_atom_names_map.items():
-                positioned_atom_names_map[f"{m_id}:{name}"] = str(idx)
+            for name, data in current_atom_names.items():
+                positioned_atom_names_map[f"{m_id}:{name}"] = str(data['idx'])
         else:
             prev_monomer_id = prev_monomer_yaml['monomer_id']
+            prev_semantic_map = prev_monomer_yaml.get("semantic_map", {})
+            reversed_prev_semantic_map = {v: k for k, v in prev_semantic_map.items()}
+            reversed_current_semantic_map = {v: k for k, v in current_semantic_map.items()}
+
             prev_conns = [merge_standard(c, std_conns) for c in prev_monomer_yaml.get("connections", [])]
             curr_conns = [merge_standard(c, std_conns) for c in current_monomer_yaml.get("connections", [])]
 
-            prev_cterm = next(c for c in prev_conns if "C_term" in c["label"])
-            curr_nterm = next(c for c in curr_conns if "N_term" in c["label"])
+            prev_cterm = next((c for c in prev_conns if "C_term" in c.get("label", "")), None) or next((c for c in prev_conns if c.get("id") == "R2"), None)
+            curr_nterm = next((c for c in curr_conns if "N_term" in c.get("label", "")), None) or next((c for c in curr_conns if c.get("id") == "R1"), None)
+
+            if not prev_cterm or not curr_nterm:
+                raise ValueError(f"Could not find connection points between {prev_monomer_id} and {m_id}")
 
             log(f"[Connection] Linking {prev_monomer_id}->{m_id}")
             log(f"   Prev connect_atom: {prev_cterm['connect_atom']}")
             log(f"   Curr connect_atom: {curr_nterm['connect_atom']}")
 
-            # Get atoms to remove
+            # --- Atom Removal ---
             atoms_to_remove_prev = set()
             for name in prev_cterm.get("remove_atoms_on_connect", []):
-                atoms_to_remove_prev.add(find_atom_index_by_name(positioned_atom_names_map, name, prev_monomer_id))
+                generic_name = prev_semantic_map.get(name, name)
+                atoms_to_remove_prev.add(int(positioned_atom_names_map[f"{prev_monomer_id}:{generic_name}"]))
 
             atoms_to_remove_curr = set()
             for name in curr_nterm.get("remove_atoms_on_connect", []):
-                atoms_to_remove_curr.add(find_atom_index_by_name(current_atom_names_map, name))
+                generic_name = current_semantic_map.get(name, name)
+                atoms_to_remove_curr.add(current_atom_names[generic_name]['idx'])
 
-            # Create new molecules with only the atoms that should be kept
             new_positioned_mol = Chem.RWMol(positioned_mol)
             for idx in sorted(list(atoms_to_remove_prev), reverse=True):
                 new_positioned_mol.RemoveAtom(idx)
@@ -170,21 +131,31 @@ def build_sequence(seq_def):
             positioned_mol = new_positioned_mol.GetMol()
             rw_mol = new_rw_mol.GetMol()
 
+            # --- Geometry Placement ---
+            prev_connect_generic = prev_semantic_map.get(prev_cterm['connect_atom'], prev_cterm['connect_atom'])
+            prev_idx = int(positioned_atom_names_map[f"{prev_monomer_id}:{prev_connect_generic}"])
+
+            # Use the semantic map to get the generic name for the current monomer
+            curr_connect_semantic = curr_nterm['connect_atom']
+            curr_connect_generic = current_semantic_map.get(curr_connect_semantic)
+            if not curr_connect_generic:
+                raise ValueError(f"Semantic name '{curr_connect_semantic}' not found in semantic_map for {m_id}")
+            curr_idx = current_atom_names[curr_connect_generic]['idx']
+
             positioned_conf = positioned_mol.GetConformer()
-            prev_idx = find_atom_index_by_name(positioned_atom_names_map, prev_cterm["connect_atom"], prev_monomer_id)
             prev_coord = np.array(positioned_conf.GetAtomPosition(prev_idx))
             prev_neigh_idx = [n.GetIdx() for n in positioned_mol.GetAtomWithIdx(prev_idx).GetNeighbors()][0]
             prev_neigh_coord = np.array(positioned_conf.GetAtomPosition(prev_neigh_idx))
 
             curr_conf = rw_mol.GetConformer()
-            curr_idx = find_atom_index_by_name(current_atom_names_map, curr_nterm["connect_atom"]) # Search local map before it's merged
             curr_coord = np.array(curr_conf.GetAtomPosition(curr_idx))
             curr_neigh_idx = [n.GetIdx() for n in rw_mol.GetAtomWithIdx(curr_idx).GetNeighbors()][0]
             curr_neigh_coord = np.array(curr_conf.GetAtomPosition(curr_neigh_idx))
 
-            log(f"   Bond length: {prev_cterm['bond']['length']}")
-            log(f"   Bond angle: {prev_cterm.get('angle',{}).get('value','N/A')}")
-            log(f"   Dihedral: {prev_cterm.get('dihedral',{}).get('default','N/A')}")
+            bond_len = prev_cterm.get('bond', {}).get('length', 1.33)
+            log(f"   Bond length: {bond_len}")
+
+            # ... (rest of geometry logic is the same)
 
             apply_translation(curr_conf, -curr_coord)
             bond_vec = curr_neigh_coord - curr_coord
@@ -211,27 +182,25 @@ def build_sequence(seq_def):
                 R_dih = np.identity(3) + math.sin(dihedral_rad) * Kd + (1 - math.cos(dihedral_rad)) * (Kd @ Kd)
                 apply_rotation(curr_conf, R_dih)
 
-            bond_len = prev_cterm["bond"]["length"]
             dir_vec = prev_coord - prev_neigh_coord
             dir_vec /= np.linalg.norm(dir_vec)
             apply_translation(curr_conf, prev_coord + dir_vec * bond_len)
 
+            # --- Combine and Finalize ---
             offset = positioned_mol.GetNumAtoms()
             combo = Chem.CombineMols(positioned_mol, rw_mol)
             combo_rw = Chem.RWMol(combo)
             combo_rw.AddBond(prev_idx, offset + curr_idx, Chem.rdchem.BondType.SINGLE)
 
-            # After adding the bond, check if it should be marked as rigid
             if "dihedral" in prev_cterm:
                 new_bond = combo_rw.GetBondBetweenAtoms(prev_idx, offset + curr_idx)
                 if new_bond:
                     new_bond.SetBoolProp("is_rigid", True)
                     log(f"   [Rigidity] Marked bond between atoms {prev_idx} and {offset + curr_idx} as rigid.")
 
-            # Merge atom name maps with unique names
             new_positioned_atom_names_map = dict(positioned_atom_names_map)
-            for name, idx in current_atom_names_map.items():
-                new_positioned_atom_names_map[f"{m_id}:{name}"] = str(int(idx) + offset)
+            for name, data in current_atom_names.items():
+                new_positioned_atom_names_map[f"{m_id}:{name}"] = str(int(data['idx']) + offset)
 
             positioned_mol = combo_rw
             positioned_atom_names_map = new_positioned_atom_names_map
