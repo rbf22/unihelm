@@ -8,21 +8,22 @@ smiles: "N1[C@@H](CCC1)C(=O)O"
 
 atom_names:
   N: 0
-  CA: 1
-  CB: 2
-  CG: 3
-  CD: 4
+  Cα: 1
+  Cβ: 2
+  Cγ: 3
+  Cδ: 4
   C: 5
   O: 6
-  OXT: 7
+  O': 7
   H: 8
-  HA: 9
-  HB2: 10
-  HB3: 11
-  HG2: 12
-  HG3: 13
-  HD2: 14
-  HD3: 15
+  Hα: 9
+  Hβ2: 10
+  Hβ3: 11
+  Hγ2: 12
+  Hγ3: 13
+  Hδ2: 14
+  Hδ3: 15
+  HO': 16
 
 connections:
   - id: R1
@@ -35,27 +36,27 @@ connections:
   - id: R2
     label: C_terminal
     connect_atom: C
-    remove_atoms_on_connect: [OXT]
+    remove_atoms_on_connect: [O']
     order: 1
     type: Polymer
     use_standard: peptide_C
 
 geometry:
   bonds:
-    - { atoms: [N, CA], length: 1.458 }
-    - { atoms: [CA, C], length: 1.525 }
+    - { atoms: [N, Cα], length: 1.458 }
+    - { atoms: [Cα, C], length: 1.525 }
     - { atoms: [C, O], length: 1.229 }
-    - { atoms: [CA, CB], length: 1.530 }
-    - { atoms: [CB, CG], length: 1.520 }
-    - { atoms: [CG, CD], length: 1.520 }
-    - { atoms: [CD, N], length: 1.470 }
+    - { atoms: [Cα, Cβ], length: 1.530 }
+    - { atoms: [Cβ, Cγ], length: 1.520 }
+    - { atoms: [Cγ, Cδ], length: 1.520 }
+    - { atoms: [Cδ, N], length: 1.470 }
   angles:
-    - { atoms: [C_prev, N, CA], angle: 121.7 }
+    - { atoms: [C_prev, N, Cα], angle: 121.7 }
   torsions:
-    - { atoms: [C_prev, N, CA, C], type: omega, default: 180.0, library: peptide_omega }
+    - { atoms: [C_prev, N, Cα, C], type: omega, default: 180.0, library: peptide_omega }
 
 rigid_groups:
   - id: backbone
-    atoms: [N, CA, C, O, H, HA]
+    atoms: [N, Cα, C, O, H, Hα]
   - id: pyrrolidine_ring
-    atoms: [CB, CG, CD, N, HB2, HB3, HG2, HG3, HD2, HD3]
+    atoms: [Cβ, Cγ, Cδ, N, Hβ2, Hβ3, Hγ2, Hγ3, Hδ2, Hδ3]

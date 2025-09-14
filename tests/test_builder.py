@@ -16,12 +16,12 @@ def test_merge_standard():
     assert merged["bond"]["length"] == 1.5
 
 def test_find_atom_index_by_name():
-    atom_names_map = {"0": "monomer1:N", "1": "monomer1:CA", "2": "monomer2:C"}
+    atom_names_map = {"monomer1:N": "0", "monomer1:CA": "1", "monomer2:C": "2"}
     index = find_atom_index_by_name(atom_names_map, "CA", "monomer1")
     assert index == 1
 
 def test_find_atom_index_by_name_not_found():
-    atom_names_map = {"0": "monomer1:N", "1": "monomer1:CA", "2": "monomer2:C"}
+    atom_names_map = {"monomer1:N": "0", "monomer1:CA": "1", "monomer2:C": "2"}
     with pytest.raises(ValueError):
         find_atom_index_by_name(atom_names_map, "CB", "monomer1")
 

@@ -50,15 +50,15 @@ def find_atom_index_by_name(atom_names_map, atom_name, monomer_id=None):
     # Construct the name to search for.
     search_name = atom_name if is_external else f"{monomer_id}:{atom_name}"
 
-    for idx_str, name in atom_names_map.items():
+    for name, idx in atom_names_map.items():
         if name == search_name:
-            return int(idx_str)
+            return int(idx)
 
     # Fallback for old-style maps during the first monomer addition
     if monomer_id is None:
-        for idx_str, name in atom_names_map.items():
+        for name, idx in atom_names_map.items():
             if name == atom_name:
-                return int(idx_str)
+                return int(idx)
 
     raise ValueError(f"Atom '{search_name}' not found in atom_names_map")
 
@@ -135,8 +135,8 @@ def build_sequence(seq_def):
         if i == 0:
             positioned_mol = rw_mol
             # Create the initial uniquely-named map
-            for k, v in current_atom_names_map.items():
-                positioned_atom_names_map[k] = f"{m_id}:{v}"
+            for name, idx in current_atom_names_map.items():
+                positioned_atom_names_map[f"{m_id}:{name}"] = str(idx)
         else:
             prev_monomer_id = prev_monomer_yaml['monomer_id']
             prev_conns = [merge_standard(c, std_conns) for c in prev_monomer_yaml.get("connections", [])]
@@ -223,8 +223,8 @@ def build_sequence(seq_def):
 
             # Merge atom name maps with unique names
             new_positioned_atom_names_map = dict(positioned_atom_names_map)
-            for k, v in current_atom_names_map.items():
-                new_positioned_atom_names_map[str(int(k) + offset)] = f"{m_id}:{v}"
+            for name, idx in current_atom_names_map.items():
+                new_positioned_atom_names_map[f"{m_id}:{name}"] = str(int(idx) + offset)
 
             positioned_mol = combo_rw
             positioned_atom_names_map = new_positioned_atom_names_map

@@ -35,7 +35,7 @@ def allowed_external(name):
 
 def get_atom_names(data, mol):
     if isinstance(data.get("atom_names"), dict):
-        names = list(data["atom_names"].values())
+        names = list(data["atom_names"].keys())
         if len(set(names)) != len(names):
             raise ValueError("Duplicate atom names detected in atom_names.")
         return set(names)
