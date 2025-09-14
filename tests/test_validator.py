@@ -34,7 +34,7 @@ def test_check_connections_invalid():
         "connections": [{"connect_atom": "C2"}],
     }
     atom_names = {"C1", "O2"}
-    with pytest.raises(ValueError, match="connect_atom 'C2' not found"):
+    with pytest.raises(ValueError, match="connect_atom 'C2' .* not found"):
         check_connections(data, atom_names, "test_id")
 
 def test_validate_yaml_valid(tmp_path):
