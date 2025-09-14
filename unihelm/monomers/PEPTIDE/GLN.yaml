@@ -1,27 +1,27 @@
 format: UniHelm YAML
 version: '1.0'
-monomer_id: MET
+monomer_id: GLN
 polymer_type: PEPTIDE
-smiles: "CC(C)CSC(C(=O)O)N"
+smiles: "NC(CCC(=O)N)C(=O)O"
 atom_names:
   N: 0
   CA: 1
   CB: 2
   CG: 3
-  SD: 4
-  CE: 5
-  C: 6
-  O: 7
-  OXT: 8
-  HN: 9
-  HA: 10
-  HB1: 11
-  HB2: 12
-  HG1: 13
-  HG2: 14
-  HE1: 15
-  HE2: 16
-  HE3: 17
+  CD: 4
+  OE1: 5
+  NE2: 6
+  C: 7
+  O: 8
+  OXT: 9
+  HN: 10
+  HA: 11
+  HB1: 12
+  HB2: 13
+  HG1: 14
+  HG2: 15
+  HE21: 16
+  HE22: 17
   HXT: 18
 connections:
 - id: R1
@@ -41,4 +41,4 @@ rigid_bodies:
 - id: backbone
   atoms: [N, CA, C, O, HN, HA]
 - id: side_chain
-  atoms: [CB, CG, SD, CE, HB1, HB2, HG1, HG2, HE1, HE2, HE3]
+  atoms: [CB, CG, CD, OE1, NE2, HB1, HB2, HG1, HG2, HE21, HE22]

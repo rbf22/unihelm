@@ -83,6 +83,13 @@ def test_all_monomers_are_valid(monomer_file):
     """
     Validates all monomer YAML files found in the project.
     """
+    from unihelm.tools import unihelm_validator
+
+    # Manually load the standard connections to bypass caching
+    std_conn_path = os.path.join(os.path.dirname(__file__), "../unihelm/connections/standard_connections.yaml")
+    std_conn_data = load_yaml(std_conn_path)
+    unihelm_validator.STANDARD_CONNECTIONS = std_conn_data.get("standard_connections", {})
+
     try:
         validate_yaml(monomer_file)
     except Exception as e:

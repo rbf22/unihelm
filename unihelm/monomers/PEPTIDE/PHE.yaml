@@ -2,5 +2,46 @@ format: UniHelm YAML
 version: '1.0'
 monomer_id: PHE
 polymer_type: PEPTIDE
-smiles: NC(CC1=CC=CC=C1)C(=O)O
-status: preliminary
+smiles: "NC(CC1=CC=CC=C1)C(=O)O"
+atom_names:
+  N: 0
+  CA: 1
+  CB: 2
+  CG: 3
+  CD1: 4
+  CD2: 5
+  CE1: 6
+  CE2: 7
+  CZ: 8
+  C: 9
+  O: 10
+  OXT: 11
+  HN: 12
+  HA: 13
+  HB1: 14
+  HB2: 15
+  HD1: 16
+  HD2: 17
+  HE1: 18
+  HE2: 19
+  HZ: 20
+  HXT: 21
+connections:
+- id: R1
+  label: N_term
+  connect_atom: N
+  remove_atoms_on_connect:
+  - HN
+  use_standard: peptide_N
+- id: R2
+  label: C_term
+  connect_atom: C
+  remove_atoms_on_connect:
+  - OXT
+  - HXT
+  use_standard: peptide_C
+rigid_bodies:
+- id: backbone
+  atoms: [N, CA, C, O, HN, HA]
+- id: side_chain
+  atoms: [CB, CG, CD1, CD2, CE1, CE2, CZ, HB1, HB2, HD1, HD2, HE1, HE2, HZ]

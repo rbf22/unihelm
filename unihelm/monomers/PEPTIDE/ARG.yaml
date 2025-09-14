@@ -2,5 +2,50 @@ format: UniHelm YAML
 version: '1.0'
 monomer_id: ARG
 polymer_type: PEPTIDE
-smiles: OC(=O)C(CCCN=C(N)N)N
-status: preliminary
+smiles: "OC(=O)C(CCCN=C(N)N)N"
+atom_names:
+  O: 0
+  C: 1
+  OXT: 2
+  CA: 3
+  CB: 4
+  CG: 5
+  CD: 6
+  NE: 7
+  CZ: 8
+  NH1: 9
+  NH2: 10
+  N: 11
+  HN: 12
+  HA: 13
+  HB1: 14
+  HB2: 15
+  HG1: 16
+  HG2: 17
+  HD1: 18
+  HD2: 19
+  HE: 20
+  HH11: 21
+  HH12: 22
+  HH21: 23
+  HH22: 24
+  HXT: 25
+connections:
+- id: R1
+  label: N_term
+  connect_atom: N
+  remove_atoms_on_connect:
+  - HN
+  use_standard: peptide_N
+- id: R2
+  label: C_term
+  connect_atom: C
+  remove_atoms_on_connect:
+  - OXT
+  - HXT
+  use_standard: peptide_C
+rigid_bodies:
+- id: backbone
+  atoms: [N, CA, C, O, HN, HA]
+- id: side_chain
+  atoms: [CB, CG, CD, NE, CZ, NH1, NH2, HB1, HB2, HG1, HG2, HD1, HD2, HE, HH11, HH12, HH21, HH22]
